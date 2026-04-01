@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FIFA World Cup 2026 Schedule</title>
-  <meta name="description" content="FIFA World Cup 2026 schedule timeline in your local timezone. Filter by team, venue, group, or stage.">
+  <meta name="description" content="FIFA World Cup 2026 match schedule in your local timezone. Filter by team, venue, group, or stage.">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="timeline.css">
 </head>
 <body>
   <header>
     <nav class="view-nav">
-      <a href="index.html" class="active">Timeline</a>
-      <a href="list.html">List</a>
+      <a href="index.html">Timeline</a>
+      <a href="list.html" class="active">List</a>
     </nav>
     <h1>FIFA World Cup 2026</h1>
     <div class="subtitle-row">
@@ -42,11 +41,7 @@
     <button id="filter-clear" type="button" class="hidden">Clear filters</button>
   </nav>
 
-  <div class="timeline-wrapper">
-    <div id="timeline-grid" class="timeline-grid"></div>
-  </div>
-
-  <div class="timeline-legend" id="timeline-legend"></div>
+  <main id="match-list"></main>
 
   <footer>
     <p>Times shown in your local timezone. <span id="last-updated"></span></p>
@@ -55,6 +50,6 @@
   </footer>
 
   <script src="shared.js"></script>
-  <script src="timeline.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

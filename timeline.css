@@ -1,6 +1,5 @@
 .timeline-wrapper {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
   padding: 0 0 1rem;
 }
 
@@ -119,9 +118,36 @@
   z-index: 6;
 }
 
+.tl-match-dimmed {
+  opacity: 0.15;
+  filter: grayscale(0.8);
+}
+
+.tl-match-dimmed:hover {
+  opacity: 0.35;
+}
+
+.tl-match-highlighted {
+  box-shadow: 0 0 0 2px #fff, 0 2px 8px rgba(0, 0, 0, 0.5);
+  z-index: 7;
+}
+
 .tl-match-label {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.tl-match-tbd {
+  opacity: 0.5;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.tl-tbd {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1px 0.2em;
+  border-radius: 2px;
+  font-style: italic;
+  opacity: 0.8;
 }
 
 .tl-match-num {

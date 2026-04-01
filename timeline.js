@@ -2,14 +2,127 @@
   'use strict';
 
   const { GROUP_COLORS, STAGE_COLORS, STAGE_LABELS,
-    getLocalDateKey, esc, getMatchColor,
+    getLocalDateKey, esc, getMatchColor, isRealTeam, teamHtml,
     detectTimezone, initTimezoneUI, loadMatches,
     setTz, getTz, getMatches } = window.WC;
 
-  const SLOT_WIDTH = 60;       // px per 30-min slot
   const DATE_COL_WIDTH = 120;  // px for sticky date column
   const ROW_HEIGHT = 36;       // px per date row
   const MATCH_BLOCK_SLOTS = 3; // each match block spans 3 slots (1.5 hours)
+  const MIN_SLOT_WIDTH = 30;   // minimum px per 30-min slot
+
+  // --- Filters ---
+
+  function getFilterState() {
+    return {
+      team: document.getElementById('filter-team').value,
+      venue: document.getElementById('filter-venue').value,
+      group: document.getElementById('filter-group').value,
+      stage: document.getElementById('filter-stage').value,
+    };
+  }
+
+  function matchesFilter(m) {
+    const f = getFilterState();
+    if (f.team && m.homeTeam !== f.team && m.awayTeam !== f.team) return false;
+    if (f.venue && m.venue !== f.venue) return false;
+    if (f.group && m.group !== f.group) return false;
+    if (f.stage && m.stage !== f.stage) return false;
+    return true;
+  }
+
+  function hasActiveFilter() {
+    const f = getFilterState();
+    return !!(f.team || f.venue || f.group || f.stage);
+  }
+
+  function populateFilterOptions(matches) {
+    const teams = new Set();
+    const venues = new Set();
+    const groups = new Set();
+    const stages = new Set();
+
+    matches.forEach(m => {
+      if (isRealTeam(m.homeTeam)) teams.add(m.homeTeam);
+      if (isRealTeam(m.awayTeam)) teams.add(m.awayTeam);
+      venues.add(m.venue);
+      if (m.group) groups.add(m.group);
+      stages.add(m.stage);
+    });
+
+    fillSelect('filter-team', [...teams].sort(), 'All Teams');
+    fillSelect('filter-venue', [...venues].sort(), 'All Venues');
+    fillSelect('filter-group', [...groups].sort((a, b) => a.localeCompare(b)), 'All Groups');
+    fillSelect('filter-stage', [...stages].sort((a, b) => {
+      const order = Object.keys(STAGE_LABELS);
+      return order.indexOf(a) - order.indexOf(b);
+    }), 'All Stages', v => STAGE_LABELS[v] || v);
+  }
+
+  function fillSelect(id, values, placeholder, labelFn) {
+    const sel = document.getElementById(id);
+    const current = sel.value;
+    sel.innerHTML = `<option value="">${placeholder}</option>` +
+      values.map(v =>
+        `<option value="${v}" ${v === current ? 'selected' : ''}>${labelFn ? labelFn(v) : v}</option>`
+      ).join('');
+  }
+
+  function syncFiltersToURL() {
+    const params = new URLSearchParams(location.search);
+    const f = getFilterState();
+    ['team', 'venue', 'group', 'stage'].forEach(key => {
+      if (f[key]) params.set(key, f[key]);
+      else params.delete(key);
+    });
+    params.set('tz', getTz());
+    history.replaceState(null, '', '?' + params.toString());
+    const has = Object.values(f).some(v => v);
+    document.getElementById('filter-clear').classList.toggle('hidden', !has);
+  }
+
+  function restoreFiltersFromURL() {
+    const params = new URLSearchParams(location.search);
+    ['team', 'venue', 'group', 'stage'].forEach(key => {
+      const val = params.get(key);
+      if (val) document.getElementById('filter-' + key).value = val;
+    });
+  }
+
+  function initFilters() {
+    ['filter-team', 'filter-venue', 'filter-group', 'filter-stage'].forEach(id => {
+      document.getElementById(id).addEventListener('change', () => {
+        syncFiltersToURL();
+        applyFilterHighlights();
+      });
+    });
+    document.getElementById('filter-clear').addEventListener('click', () => {
+      ['filter-team', 'filter-venue', 'filter-group', 'filter-stage'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      syncFiltersToURL();
+      applyFilterHighlights();
+    });
+  }
+
+  function applyFilterHighlights() {
+    const filtering = hasActiveFilter();
+    document.querySelectorAll('.tl-match').forEach(el => {
+      if (!filtering) {
+        el.classList.remove('tl-match-dimmed', 'tl-match-highlighted');
+        return;
+      }
+      const id = parseInt(el.dataset.matchId, 10);
+      const m = getMatches().find(match => match.id === id);
+      if (m && matchesFilter(m)) {
+        el.classList.remove('tl-match-dimmed');
+        el.classList.add('tl-match-highlighted');
+      } else {
+        el.classList.remove('tl-match-highlighted');
+        el.classList.add('tl-match-dimmed');
+      }
+    });
+  }
 
   // Get hour + minute as decimal in the match's local date context
   // Returns { dateKey, hour } where hour can be 0-23.99
@@ -92,7 +205,12 @@
 
     const dates = [...dateMap.entries()].sort((a, b) => a[0].localeCompare(b[0]));
     const totalRows = dates.length;
-    const contentWidth = numSlots * SLOT_WIDTH;
+
+    // Fit slots within viewport width (no horizontal scroll)
+    const availableWidth = window.innerWidth - DATE_COL_WIDTH - 2; // 2px for borders
+    const slotWidth = Math.max(MIN_SLOT_WIDTH, Math.floor(availableWidth / numSlots));
+    const contentWidth = numSlots * slotWidth;
+    const matchBlockWidth = MATCH_BLOCK_SLOTS * slotWidth;
 
     // Build HTML
     let html = '';
@@ -101,13 +219,16 @@
     html += `<div class="tl-row tl-header-row">`;
     html += `<div class="tl-date-cell tl-header-corner">Kick-off</div>`;
     html += `<div class="tl-slots-container" style="width:${contentWidth}px;">`;
+    // Show every hour label, or every 2 hours if slots are narrow
+    const labelEvery = slotWidth < 40 ? 4 : 2; // 4 half-slots = 2h, 2 half-slots = 1h
     for (let i = 0; i < numSlots; i++) {
       const slotHour = (startHour + i * 0.5) % 24;
       const h = Math.floor(slotHour);
       const m = Math.round((slotHour % 1) * 60);
-      const label = m === 0 ? `${String(h).padStart(2, '0')}:00` : '';
       const isHour = m === 0;
-      html += `<div class="tl-slot-header${isHour ? ' tl-hour-mark' : ''}" style="left:${i * SLOT_WIDTH}px;width:${SLOT_WIDTH}px;">${label}</div>`;
+      const showLabel = isHour && (i % labelEvery === 0);
+      const label = showLabel ? `${String(h).padStart(2, '0')}:00` : '';
+      html += `<div class="tl-slot-header${isHour ? ' tl-hour-mark' : ''}" style="left:${i * slotWidth}px;width:${slotWidth}px;">${label}</div>`;
     }
     html += `</div></div>`;
 
@@ -152,14 +273,14 @@
         const slotHour = (startHour + i * 0.5) % 24;
         const m = Math.round((slotHour % 1) * 60);
         const isHour = m === 0;
-        html += `<div class="tl-gridline${isHour ? ' tl-gridline-hour' : ''}" style="left:${i * SLOT_WIDTH}px;width:${SLOT_WIDTH}px;height:${rowH}px;"></div>`;
+        html += `<div class="tl-gridline${isHour ? ' tl-gridline-hour' : ''}" style="left:${i * slotWidth}px;width:${slotWidth}px;height:${rowH}px;"></div>`;
       }
 
       // Match blocks
       items.forEach(({ match: m, hour }, idx) => {
         const slotPos = hourToSlot(hour);
-        const left = slotPos * SLOT_WIDTH;
-        const width = MATCH_BLOCK_SLOTS * SLOT_WIDTH;
+        const left = slotPos * slotWidth;
+        const width = matchBlockWidth;
         const lane = itemLanes[idx];
         const top = lane * ROW_HEIGHT + 2;
         const blockH = ROW_HEIGHT - 4;
@@ -167,13 +288,19 @@
 
         const home = shortenTeam(m.homeTeam);
         const away = shortenTeam(m.awayTeam);
-        const label = `${home} v ${away}`;
+        const homeReal = isRealTeam(m.homeTeam);
+        const awayReal = isRealTeam(m.awayTeam);
+        const bothTbd = !homeReal && !awayReal;
+        const blockColor = bothTbd ? '#3a3f4b' : color;
         const groupLetter = m.group ? m.group.replace('Group ', '') : '';
         const numLabel = m.stage !== 'GROUP_STAGE' ? m.id : '';
 
-        html += `<div class="tl-match" style="left:${left}px;top:${top}px;width:${width}px;height:${blockH}px;background:${color};" title="${esc(m.homeTeam)} v ${esc(m.awayTeam)}\n${esc(m.venue)}">`;
+        const homeLabel = homeReal ? esc(home) : `<span class="tl-tbd">${esc(home)}</span>`;
+        const awayLabel = awayReal ? esc(away) : `<span class="tl-tbd">${esc(away)}</span>`;
+
+        html += `<div class="tl-match${bothTbd ? ' tl-match-tbd' : ''}" data-match-id="${m.id}" style="left:${left}px;top:${top}px;width:${width}px;height:${blockH}px;background:${blockColor};" title="${esc(m.homeTeam)} v ${esc(m.awayTeam)}\n${esc(m.venue)}">`;
         if (numLabel) html += `<span class="tl-match-num">${numLabel}</span>`;
-        html += `<span class="tl-match-label">${esc(label)}</span>`;
+        html += `<span class="tl-match-label">${homeLabel} v ${awayLabel}</span>`;
         if (groupLetter) html += `<span class="tl-match-group">${groupLetter}</span>`;
         html += `</div>`;
       });
@@ -183,6 +310,7 @@
 
     grid.innerHTML = html;
     renderLegend();
+    applyFilterHighlights();
   }
 
   function shortenTeam(name) {
@@ -229,8 +357,18 @@
       updated.textContent = `Last updated: ${d.toLocaleDateString()} ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
     }
 
+    populateFilterOptions(getMatches());
+    restoreFiltersFromURL();
     initTimezoneUI(render);
+    initFilters();
+    syncFiltersToURL();
     render();
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(render, 150);
+    });
   }
 
   if (document.readyState === 'loading') {

@@ -2,7 +2,7 @@
   'use strict';
 
   const { STAGE_LABELS, formatTime, formatDate, getLocalDateKey,
-    esc, detectTimezone, initTimezoneUI, loadMatches,
+    esc, isRealTeam, teamHtml, detectTimezone, initTimezoneUI, loadMatches,
     setTz, getTz, getMatches } = window.WC;
 
   // --- Filters ---
@@ -34,8 +34,8 @@
     const stages = new Set();
 
     matches.forEach(m => {
-      teams.add(m.homeTeam);
-      teams.add(m.awayTeam);
+      if (isRealTeam(m.homeTeam)) teams.add(m.homeTeam);
+      if (isRealTeam(m.awayTeam)) teams.add(m.awayTeam);
       venues.add(m.venue);
       if (m.group) groups.add(m.group);
       stages.add(m.stage);
@@ -141,9 +141,9 @@
         html += `<div class="match-card">
           <div class="match-time">${time}${statusHtml}</div>
           <div class="match-teams">
-            <div class="team">${esc(m.homeTeam)}</div>
+            <div class="team">${teamHtml(m.homeTeam)}</div>
             ${scoreText}
-            <div class="team">${esc(m.awayTeam)}</div>
+            <div class="team">${teamHtml(m.awayTeam)}</div>
           </div>
           <div class="match-meta">
             <div class="match-venue" title="${esc(m.venue)}">${esc(m.venue)}</div>

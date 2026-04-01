@@ -137,6 +137,19 @@ window.WC = (function () {
     return data;
   }
 
+  function teamHtml(name, escaped) {
+    if (isRealTeam(name)) return escaped || esc(name);
+    return `<span class="tbd-chip">${escaped || esc(name)}</span>`;
+  }
+
+  function isRealTeam(name) {
+    if (!name || name === 'TBD') return false;
+    if (/^\d/.test(name)) return false;              // "1st Group A", "2nd Group B", "3A/B/C/D/F"
+    if (/^(Winner|Loser) Match/.test(name)) return false;
+    if (/Path \w+ winner/i.test(name)) return false; // "UEFA Path A winner", "IC Path 1 winner"
+    return true;
+  }
+
   function setTz(tz) { currentTz = tz; }
   function getTz() { return currentTz; }
   function getMatches() { return allMatches; }
@@ -145,7 +158,7 @@ window.WC = (function () {
     STAGE_LABELS, COMMON_TIMEZONES, GROUP_COLORS, STAGE_COLORS,
     detectTimezone, formatTime, formatDate, formatDateShort,
     getLocalDateKey, getLocalHour, esc, getMatchColor,
-    initTimezoneUI, loadMatches,
+    isRealTeam, teamHtml, initTimezoneUI, loadMatches,
     setTz, getTz, getMatches,
   };
 })();

@@ -54,6 +54,7 @@ TEMPLATE = '''<!DOCTYPE html>
   <meta name="twitter:title" content="World Cup 2026 Schedule — {name} Times">
   <meta name="twitter:description" content="All World Cup 2026 kick-off times in {tz_label}.">
 
+  <link rel="preload" href="/data/matches.json" as="fetch" crossorigin>
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../timeline.css">
 
@@ -147,8 +148,8 @@ TEMPLATE = '''<!DOCTYPE html>
     <p class="country-links">Also available for: {other_countries}</p>
   </footer>
 
-  <script src="../shared.js"></script>
-  <script src="../timeline.js"></script>
+  <script src="../shared.js" defer></script>
+  <script src="../timeline.js" defer></script>
 </body>
 </html>
 '''

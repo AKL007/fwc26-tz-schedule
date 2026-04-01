@@ -71,7 +71,7 @@ def main():
             'id': m.get('num', i + 1),
             'utcDate': parse_time(m['date'], m['time']),
             'stage': normalize_stage(round_name),
-            'group': m.get('group'),
+            'group': m.get('group', '').replace('Group ', 'GROUP_') or None,
             'matchday': int(round_name.replace('Matchday ', '')) if round_name.startswith('Matchday') else None,
             'homeTeam': normalize_team(m.get('team1')),
             'awayTeam': normalize_team(m.get('team2')),

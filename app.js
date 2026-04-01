@@ -43,7 +43,7 @@
 
     fillSelect('filter-team', [...teams].sort(), 'All Teams');
     fillSelect('filter-venue', [...venues].sort(), 'All Venues');
-    fillSelect('filter-group', [...groups].sort((a, b) => a.localeCompare(b)), 'All Groups');
+    fillSelect('filter-group', [...groups].sort((a, b) => a.localeCompare(b)), 'All Groups', v => 'Group ' + v.replace('Group ', '').replace('GROUP_', ''));
     fillSelect('filter-stage', [...stages].sort((a, b) => {
       const order = Object.keys(STAGE_LABELS);
       return order.indexOf(a) - order.indexOf(b);
@@ -130,7 +130,7 @@
       matches.forEach(m => {
         const time = formatTime(m.utcDate, tz);
         const stageLabel = STAGE_LABELS[m.stage] || m.stage;
-        const badgeText = m.group ? m.group.replace('Group ', 'Grp ') : stageLabel;
+        const badgeText = m.group ? 'Grp ' + m.group.replace('Group ', '').replace('GROUP_', '') : stageLabel;
         const scoreText = m.score.home !== null
           ? `<span class="score">${m.score.home} - ${m.score.away}</span>`
           : '<span class="vs">vs</span>';

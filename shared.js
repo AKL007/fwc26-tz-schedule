@@ -23,12 +23,17 @@ window.WC = (function () {
     'America/Los_Angeles', 'America/Anchorage', 'Pacific/Honolulu',
   ];
 
-  const GROUP_COLORS = {
-    'Group A': '#1a5276', 'Group B': '#1e8449', 'Group C': '#2e86c1',
-    'Group D': '#d35400', 'Group E': '#6c3483', 'Group F': '#cb4335',
-    'Group G': '#7d3c98', 'Group H': '#c0392b', 'Group I': '#d4ac0d',
-    'Group J': '#117a65', 'Group K': '#884ea0', 'Group L': '#2c3e50',
+  const _GROUP_MAP = {
+    A: '#1a5276', B: '#1e8449', C: '#2e86c1', D: '#d35400',
+    E: '#6c3483', F: '#cb4335', G: '#7d3c98', H: '#c0392b',
+    I: '#d4ac0d', J: '#117a65', K: '#884ea0', L: '#2c3e50',
   };
+  // Support both "Group A" and "GROUP_A" formats
+  const GROUP_COLORS = {};
+  for (const [letter, color] of Object.entries(_GROUP_MAP)) {
+    GROUP_COLORS['Group ' + letter] = color;
+    GROUP_COLORS['GROUP_' + letter] = color;
+  }
 
   const STAGE_COLORS = {
     ROUND_OF_32: '#5d6d7e', ROUND_OF_16: '#2e4053',

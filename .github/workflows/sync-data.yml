@@ -19,6 +19,9 @@ jobs:
         env:
           FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
 
+      - name: Validate data
+        run: python3 -m pytest tests/ -v
+
       - name: Commit updated data
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

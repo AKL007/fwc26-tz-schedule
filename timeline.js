@@ -52,7 +52,7 @@
 
     fillSelect('filter-team', [...teams].sort(), 'All Teams');
     fillSelect('filter-venue', [...venues].sort(), 'All Venues');
-    fillSelect('filter-group', [...groups].sort((a, b) => a.localeCompare(b)), 'All Groups');
+    fillSelect('filter-group', [...groups].sort((a, b) => a.localeCompare(b)), 'All Groups', v => 'Group ' + v.replace('Group ', '').replace('GROUP_', ''));
     fillSelect('filter-stage', [...stages].sort((a, b) => {
       const order = Object.keys(STAGE_LABELS);
       return order.indexOf(a) - order.indexOf(b);
@@ -292,7 +292,7 @@
         const awayReal = isRealTeam(m.awayTeam);
         const bothTbd = !homeReal && !awayReal;
         const blockColor = bothTbd ? '#3a3f4b' : color;
-        const groupLetter = m.group ? m.group.replace('Group ', '') : '';
+        const groupLetter = m.group ? m.group.replace('Group ', '').replace('GROUP_', '') : '';
         const numLabel = m.stage !== 'GROUP_STAGE' ? m.id : '';
 
         const homeLabel = homeReal ? esc(home) : `<span class="tl-tbd">${esc(home)}</span>`;

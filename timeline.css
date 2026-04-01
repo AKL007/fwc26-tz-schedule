@@ -1,3 +1,12 @@
+.timeline-header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 22;
+  background: var(--bg);
+  overflow-x: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
 .timeline-wrapper {
   overflow-x: hidden;
   padding: 0 0 1rem;
@@ -15,9 +24,6 @@
 }
 
 .tl-header-row {
-  position: sticky;
-  top: 0;
-  z-index: 20;
   background: var(--bg);
   height: auto;
 }

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wc-26-schedule.com/sitemap.xml

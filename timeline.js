@@ -212,14 +212,10 @@
     const contentWidth = numSlots * slotWidth;
     const matchBlockWidth = MATCH_BLOCK_SLOTS * slotWidth;
 
-    // Build HTML
-    let html = '';
-
-    // === Header row ===
-    html += `<div class="tl-row tl-header-row">`;
-    html += `<div class="tl-date-cell tl-header-corner">Kick-off</div>`;
-    html += `<div class="tl-slots-container" style="width:${contentWidth}px;">`;
-    // Show every hour or every 2 hours if slots are narrow
+    // Build header HTML (rendered outside the scroll wrapper for sticky)
+    let headerHtml = `<div class="tl-row tl-header-row">`;
+    headerHtml += `<div class="tl-date-cell tl-header-corner">Kick-off</div>`;
+    headerHtml += `<div class="tl-slots-container" style="width:${contentWidth}px;">`;
     const skipHours = slotWidth < 40 ? 2 : 1;
     let hourCount = 0;
     for (let i = 0; i < numSlots; i++) {
@@ -234,9 +230,15 @@
         }
         hourCount++;
       }
-      html += `<div class="tl-slot-header${isHour ? ' tl-hour-mark' : ''}" style="left:${i * slotWidth}px;width:${slotWidth}px;">${label}</div>`;
+      headerHtml += `<div class="tl-slot-header${isHour ? ' tl-hour-mark' : ''}" style="left:${i * slotWidth}px;width:${slotWidth}px;">${label}</div>`;
     }
-    html += `</div></div>`;
+    headerHtml += `</div></div>`;
+
+    const headerEl = document.getElementById('timeline-header');
+    if (headerEl) headerEl.innerHTML = headerHtml;
+
+    // Build grid HTML
+    let html = '';
 
     // === Date rows ===
     dates.forEach(([dateKey, { items, sampleUtc }]) => {
@@ -322,6 +324,12 @@
     grid.innerHTML = html;
     renderLegend();
     applyFilterHighlights();
+
+    // Position sticky header below sticky filters (overlap by 1px to avoid gap)
+    const filters = document.querySelector('.filters');
+    if (filters && headerEl) {
+      headerEl.style.top = (filters.offsetHeight - 1) + 'px';
+    }
   }
 
   function shortenTeam(name) {

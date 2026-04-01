@@ -150,7 +150,7 @@ window.WC = (function () {
   }
 
   async function loadMatches() {
-    const res = await fetch('data/matches.json');
+    const res = await fetch('/data/matches.json');
     const data = await res.json();
     allMatches = data.matches;
     return data;

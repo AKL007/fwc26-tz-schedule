@@ -3,38 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <title>FIFA World Cup 2026 Schedule in Your Timezone | Kick-off Times for Every Match</title>
-  <meta name="description" content="Complete FIFA World Cup 2026 schedule with all 104 matches automatically converted to your local timezone. Filter by team, venue, group, or stage. USA, Canada &amp; Mexico.">
-  <meta name="keywords" content="FIFA World Cup 2026, schedule, fixtures, kick-off times, local timezone, match times, USA Canada Mexico">
-  <link rel="canonical" href="https://wc-26-schedule.com/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <title>FIFA World Cup 2026 Schedule — Japan Kick-off Times (JST)</title>
+  <meta name="description" content="FIFA World Cup 2026 match schedule with kick-off times in Japan time (JST). All 104 matches, filter by team, venue, or group.">
+  <meta name="keywords" content="FIFA World Cup 2026, Japan, schedule, kick-off times, JST, Japanese time, fixtures">
+  <link rel="canonical" href="https://wc-26-schedule.com/japan/">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="FIFA World Cup 2026 Schedule in Your Timezone">
-  <meta property="og:description" content="All 104 World Cup 2026 matches with kick-off times in your local timezone. Filter by team, venue, or group.">
+  <meta property="og:title" content="World Cup 2026 Schedule — Japan Times">
+  <meta property="og:description" content="All 104 World Cup 2026 matches with kick-off times in Japan time (JST).">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://wc-26-schedule.com/">
+  <meta property="og:url" content="https://wc-26-schedule.com/japan/">
   <meta property="og:image" content="https://wc-26-schedule.com/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="WC 2026 Schedule">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://wc-26-schedule.com/og-image.jpg">
-  <meta name="twitter:title" content="FIFA World Cup 2026 Schedule in Your Timezone">
-  <meta name="twitter:description" content="All 104 matches with kick-off times automatically converted to your timezone.">
+  <meta name="twitter:title" content="World Cup 2026 Schedule — Japan Times">
+  <meta name="twitter:description" content="All World Cup 2026 kick-off times in JST.">
 
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="timeline.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../timeline.css">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "FIFA World Cup 2026 Schedule",
-    "description": "Complete FIFA World Cup 2026 match schedule with kick-off times in your local timezone",
-    "url": "https://wc-26-schedule.com/",
+    "name": "FIFA World Cup 2026 Schedule — Japan",
+    "description": "World Cup 2026 match times in Japan timezone (JST)",
+    "url": "https://wc-26-schedule.com/japan/",
     "about": {
       "@type": "SportsEvent",
       "name": "FIFA World Cup 2026",
@@ -43,18 +40,23 @@
       "location": {
         "@type": "Place",
         "name": "USA, Canada & Mexico"
-      },
-      "organizer": {
-        "@type": "Organization",
-        "name": "FIFA"
       }
     }
   }
   </script>
+
+  <script>
+    // Set default timezone for this country page
+    if (!new URLSearchParams(location.search).has('tz')) {
+      const url = new URL(location.href);
+      url.searchParams.set('tz', 'Asia/Tokyo');
+      history.replaceState(null, '', url.toString());
+    }
+  </script>
 </head>
 <body>
   <header>
-    <h1>FIFA World Cup 2026 Schedule in Your Timezone</h1>
+    <h1>World Cup 2026 Schedule — Japan Times</h1>
     <div class="subtitle-row">
       <p class="subtitle">Match Schedule</p>
       <span class="divider">|</span>
@@ -68,7 +70,7 @@
       <div class="header-actions-side header-actions-right">
         <nav class="view-nav">
           <a href="index.html" class="active">Timeline</a>
-          <a href="list.html">List</a>
+          <a href="../list.html?tz=Asia/Tokyo">List</a>
         </nav>
       </div>
       <span class="divider">|</span>
@@ -81,7 +83,7 @@
     </div>
   </header>
 
-  <p class="intro">All 104 FIFA World Cup 2026 matches across 16 venues in the USA, Canada, and Mexico — with kick-off times automatically converted to your local timezone. June 11 – July 19, 2026.</p>
+  <p class="intro">Complete FIFA World Cup 2026 schedule with all 104 match kick-off times shown in Japan time (JST). The tournament runs from June 11 to July 19, 2026 across 16 venues in the USA, Canada, and Mexico.</p>
 
   <nav class="filters">
     <select id="filter-team" aria-label="Filter by team">
@@ -107,12 +109,13 @@
   <div class="timeline-legend" id="timeline-legend"></div>
 
   <footer>
-    <p>Times shown in your local timezone. <span id="last-updated"></span></p>
+    <p>Times shown in JST. <span id="last-updated"></span></p>
     <p>Data thanks to <a href="https://www.football-data.org" target="_blank" rel="noopener">football-data.org</a> &amp; <a href="https://github.com/openfootball" target="_blank" rel="noopener">OpenFootball</a></p>
-    <p>Made with ❤️ by <a href="https://akshaylal.com" target="_blank" rel="noopener">akshaylal.com</a></p>
+    <p>Made with &#10084;&#65039; by <a href="https://akshaylal.com" target="_blank" rel="noopener">akshaylal.com</a></p>
+    <p class="country-links">Also available for: <a href="/uk/">UK</a>, <a href="/india/">India</a>, <a href="/usa/">USA</a>, <a href="/brazil/">Brazil</a>, <a href="/germany/">Germany</a>, <a href="/france/">France</a>, <a href="/mexico/">Mexico</a>, <a href="/canada/">Canada</a>, <a href="/south-korea/">South Korea</a>, <a href="/indonesia/">Indonesia</a>, <a href="/turkey/">Türkiye</a>, <a href="/spain/">Spain</a>, <a href="/argentina/">Argentina</a>, <a href="/australia/">Australia</a>, <a href="/italy/">Italy</a>, <a href="/netherlands/">Netherlands</a>, <a href="/saudi-arabia/">Saudi Arabia</a>, <a href="/egypt/">Egypt</a>, <a href="/nigeria/">Nigeria</a></p>
   </footer>
 
-  <script src="shared.js"></script>
-  <script src="timeline.js"></script>
+  <script src="../shared.js"></script>
+  <script src="../timeline.js"></script>
 </body>
 </html>

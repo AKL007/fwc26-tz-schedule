@@ -199,6 +199,16 @@ h1 {
   padding: 0.25rem;
 }
 
+.intro {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  max-width: var(--max-width);
+  margin: 0.75rem auto 0;
+  padding: 0 1rem;
+  line-height: 1.5;
+}
+
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -208,9 +218,11 @@ h1 {
   margin: 0 auto;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 25;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
+  box-shadow: 0 0 0 100vmax var(--bg);
+  clip-path: inset(0 -100vmax);
 }
 
 .filters select {
@@ -385,6 +397,12 @@ footer a {
 
 footer a:hover {
   text-decoration: underline;
+}
+
+.country-links {
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  line-height: 1.8;
 }
 
 .tbd-chip {

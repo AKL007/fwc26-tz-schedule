@@ -180,24 +180,151 @@ window.WC = (function () {
     return `Last updated: ${day}${suffix} ${month}, ${year} ${time}`;
   }
 
-  function initShareButton() {
-    const btn = document.getElementById('share-btn');
-    if (!btn) return;
-    btn.addEventListener('click', async () => {
-      const url = window.location.href;
-      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      if (isMobile && navigator.share) {
-        try {
-          await navigator.share({ title: 'FIFA World Cup 2026 Schedule', url });
-        } catch (e) { /* user cancelled */ }
-      } else {
-        await navigator.clipboard.writeText(url);
-        btn.classList.add('shared');
-        btn.title = 'Copied!';
-        setTimeout(() => {
-          btn.classList.remove('shared');
-          btn.title = 'Share';
-        }, 2000);
+  let html2canvasLoaded = null;
+  function loadHtml2Canvas() {
+    if (html2canvasLoaded) return html2canvasLoaded;
+    html2canvasLoaded = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+      s.onload = () => resolve(window.html2canvas);
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+    return html2canvasLoaded;
+  }
+
+  async function generateImage() {
+    const h2c = await loadHtml2Canvas();
+    const header = document.getElementById('timeline-header');
+    const grid = document.getElementById('timeline-grid');
+    const target = grid || document.getElementById('match-list');
+    if (!target) return null;
+
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'position:absolute;left:-9999px;background:#0a0e17;padding:16px;';
+
+    const title = document.createElement('div');
+    title.style.cssText = 'color:#e8eaed;font-family:-apple-system,sans-serif;font-size:16px;font-weight:700;text-align:center;margin-bottom:4px;text-transform:uppercase;';
+    title.textContent = 'FIFA World Cup 2026 Schedule';
+    wrapper.appendChild(title);
+
+    const tzInfo = document.createElement('div');
+    tzInfo.style.cssText = 'color:#8b92a5;font-family:-apple-system,sans-serif;font-size:15px;text-align:center;margin-bottom:12px;';
+    tzInfo.textContent = currentTz.replace(/_/g, ' ') + ' · wc-26-schedule.com';
+    wrapper.appendChild(tzInfo);
+
+    if (header) wrapper.appendChild(header.cloneNode(true));
+    wrapper.appendChild(target.cloneNode(true));
+
+    // Reset sticky positioning so cells render in normal flow
+    wrapper.querySelectorAll('.tl-date-cell, .tl-header-corner').forEach(el => {
+      el.style.position = 'static';
+    });
+
+    document.body.appendChild(wrapper);
+
+    const canvas = await h2c(wrapper, { backgroundColor: '#0a0e17', scale: 2, useCORS: true });
+    document.body.removeChild(wrapper);
+
+    return await new Promise(r => canvas.toBlob(r, 'image/png'));
+  }
+
+  function showStatus(btn, text) {
+    const status = btn.querySelector('.share-sheet-status');
+    status.textContent = text;
+    setTimeout(() => { status.textContent = ''; }, 2000);
+  }
+
+  const _isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  function initShareSheet() {
+    const trigger = document.getElementById('share-trigger');
+    const sheet = document.getElementById('share-sheet');
+    if (!trigger || !sheet) return;
+
+    const backdrop = sheet.querySelector('.share-sheet-backdrop');
+    const closeBtn = document.getElementById('share-sheet-close');
+    const copyLink = document.getElementById('share-copy-link');
+    const copyImage = document.getElementById('share-copy-image');
+    const downloadImage = document.getElementById('share-download-image');
+
+    function open() { sheet.classList.remove('hidden'); }
+    function close() { sheet.classList.add('hidden'); }
+
+    trigger.addEventListener('click', open);
+    backdrop.addEventListener('click', close);
+    closeBtn.addEventListener('click', close);
+
+    // On mobile, change "Copy schedule" to "Share schedule"
+    if (_isMobile) {
+      const imgLabel = copyImage.querySelector('.share-sheet-label');
+      imgLabel.textContent = 'Share schedule';
+    }
+
+    // Copy link
+    copyLink.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showStatus(copyLink, 'Copied!');
+      } catch (e) {
+        showStatus(copyLink, 'Failed');
+      }
+    });
+
+    // Copy schedule
+    copyImage.addEventListener('click', async () => {
+      const label = copyImage.querySelector('.share-sheet-label');
+      label.textContent = 'Generating...';
+      copyImage.disabled = true;
+      try {
+        const blob = await generateImage();
+        if (!blob) { showStatus(copyImage, 'Failed'); return; }
+
+        const file = new File([blob], 'wc2026-schedule.png', { type: 'image/png' });
+
+        if (_isMobile && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ title: 'FIFA World Cup 2026 Schedule', files: [file] });
+        } else if (navigator.clipboard && typeof ClipboardItem !== 'undefined') {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+          showStatus(copyImage, 'Copied!');
+        } else {
+          // Fallback to download
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'wc2026-schedule.png';
+          a.click();
+          URL.revokeObjectURL(a.href);
+          showStatus(copyImage, 'Downloaded!');
+        }
+      } catch (e) {
+        console.error(e);
+        showStatus(copyImage, 'Failed');
+      } finally {
+        label.textContent = _isMobile ? 'Share schedule' : 'Copy schedule';
+        copyImage.disabled = false;
+      }
+    });
+
+    // Download schedule
+    downloadImage.addEventListener('click', async () => {
+      const label = downloadImage.querySelector('.share-sheet-label');
+      label.textContent = 'Generating...';
+      downloadImage.disabled = true;
+      try {
+        const blob = await generateImage();
+        if (!blob) { showStatus(downloadImage, 'Failed'); return; }
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'wc2026-schedule.png';
+        a.click();
+        URL.revokeObjectURL(a.href);
+        showStatus(downloadImage, 'Downloaded!');
+      } catch (e) {
+        console.error(e);
+        showStatus(downloadImage, 'Failed');
+      } finally {
+        label.textContent = 'Download schedule';
+        downloadImage.disabled = false;
       }
     });
   }
@@ -210,7 +337,7 @@ window.WC = (function () {
     STAGE_LABELS, COMMON_TIMEZONES, GROUP_COLORS, STAGE_COLORS,
     detectTimezone, formatTime, formatDate, formatDateShort,
     getLocalDateKey, getLocalHour, esc, getMatchColor,
-    isRealTeam, teamHtml, displayTeamName, formatLastUpdated, initTimezoneUI, initShareButton, loadMatches,
+    isRealTeam, teamHtml, displayTeamName, formatLastUpdated, initTimezoneUI, initShareSheet, loadMatches,
     setTz, getTz, getMatches,
   };
 })();

@@ -2,7 +2,7 @@
   'use strict';
 
   const { STAGE_LABELS, formatTime, formatDate, getLocalDateKey,
-    esc, isRealTeam, teamHtml, displayTeamName, formatLastUpdated, detectTimezone, initTimezoneUI, initShareButton, loadMatches,
+    esc, isRealTeam, teamHtml, displayTeamName, formatLastUpdated, detectTimezone, initTimezoneUI, initShareSheet, loadMatches,
     setTz, getTz, getMatches } = window.WC;
 
   // --- Filters ---
@@ -173,7 +173,7 @@
     populateFilterOptions(getMatches());
     restoreFiltersFromURL();
     initTimezoneUI(render);
-    initShareButton();
+    initShareSheet();
     initFilters();
     syncFiltersToURL();
     render();

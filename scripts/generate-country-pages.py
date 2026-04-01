@@ -108,10 +108,12 @@ TEMPLATE = '''<!DOCTYPE html>
       </div>
       <span class="divider">|</span>
       <div class="header-actions-side header-actions-left">
-        <button id="share-btn" type="button" class="share-btn" title="Share">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-          <span>Share</span>
-        </button>
+        <div class="share-group">
+          <button id="share-trigger" type="button" title="Share">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            <span>Share</span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -147,6 +149,31 @@ TEMPLATE = '''<!DOCTYPE html>
     <p>Made with &#10084;&#65039; by <a href="https://akshaylal.com" target="_blank" rel="noopener">akshaylal.com</a></p>
     <p class="country-links">Also available for: {other_countries}</p>
   </footer>
+
+  <div id="share-sheet" class="share-sheet hidden">
+    <div class="share-sheet-backdrop"></div>
+    <div class="share-sheet-panel">
+      <div class="share-sheet-header">
+        <span>Share</span>
+        <button id="share-sheet-close" type="button">&times;</button>
+      </div>
+      <button id="share-copy-link" class="share-sheet-action">
+        <span class="share-sheet-icon">&#128279;</span>
+        <span class="share-sheet-label">Copy link</span>
+        <span class="share-sheet-status"></span>
+      </button>
+      <button id="share-copy-image" class="share-sheet-action">
+        <span class="share-sheet-icon">&#128444;&#65039;</span>
+        <span class="share-sheet-label">Copy schedule</span>
+        <span class="share-sheet-status"></span>
+      </button>
+      <button id="share-download-image" class="share-sheet-action">
+        <span class="share-sheet-icon">&#11015;&#65039;</span>
+        <span class="share-sheet-label">Download schedule</span>
+        <span class="share-sheet-status"></span>
+      </button>
+    </div>
+  </div>
 
   <script src="../shared.js" defer></script>
   <script src="../timeline.js" defer></script>

@@ -5,11 +5,13 @@
   background: var(--bg);
   overflow-x: hidden;
   border-bottom: 1px solid var(--border);
+  min-height: 2rem;
 }
 
 .timeline-wrapper {
   overflow-x: hidden;
   padding: 0 0 1rem;
+  min-height: 100vh;
 }
 
 .timeline-grid {

@@ -113,9 +113,33 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
+.tl-match-full {
+  display: none;
+}
+
 .tl-match:hover {
   opacity: 0.88;
   z-index: 6;
+}
+
+.tl-match.tl-has-full:hover {
+  z-index: 20;
+  width: auto !important;
+  min-width: max-content;
+  white-space: nowrap;
+}
+
+.tl-match:hover .tl-match-short:has(~ .tl-match-full) {
+  display: none;
+}
+
+.tl-match:hover .tl-match-full {
+  display: inline;
+}
+
+/* Fallback for browsers without :has() */
+.tl-match.tl-has-full:hover .tl-match-short {
+  display: none;
 }
 
 .tl-match-dimmed {
@@ -162,6 +186,13 @@
   opacity: 0.2;
   position: absolute;
   right: 0.3rem;
+}
+
+.tl-match.tl-has-full:hover .tl-match-group {
+  position: static;
+  font-size: 0.6rem;
+  opacity: 0.6;
+  margin-left: 0.25rem;
 }
 
 /* Legend */

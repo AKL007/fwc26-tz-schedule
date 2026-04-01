@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIFA World Cup 2026 Schedule</title>
+  <meta name="description" content="FIFA World Cup 2026 match schedule in your local timezone. Filter by team, venue, group, or stage.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="view-nav">
+    <a href="index.html" class="active">List</a>
+    <a href="timeline.html">Timeline</a>
+  </nav>
+  <header>
+    <h1>FIFA World Cup 2026</h1>
+    <p class="subtitle">Match Schedule</p>
+    <div class="tz-display">
+      <span id="tz-label"></span>
+      <button id="tz-change" type="button" title="Change timezone">Change</button>
+      <select id="tz-select" class="hidden"></select>
+    </div>
+  </header>
+
+  <nav class="filters">
+    <select id="filter-team" aria-label="Filter by team">
+      <option value="">All Teams</option>
+    </select>
+    <select id="filter-venue" aria-label="Filter by venue">
+      <option value="">All Venues</option>
+    </select>
+    <select id="filter-group" aria-label="Filter by group">
+      <option value="">All Groups</option>
+    </select>
+    <select id="filter-stage" aria-label="Filter by stage">
+      <option value="">All Stages</option>
+    </select>
+    <button id="filter-clear" type="button" class="hidden">Clear filters</button>
+  </nav>
+
+  <main id="match-list"></main>
+
+  <footer>
+    <p>Times shown in your local timezone. <span id="last-updated"></span></p>
+    <p>Data from <a href="https://www.football-data.org" target="_blank" rel="noopener">football-data.org</a></p>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

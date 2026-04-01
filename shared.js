@@ -327,6 +327,90 @@ window.WC = (function () {
         downloadImage.disabled = false;
       }
     });
+
+    // Add to calendar
+    const addCalendar = document.getElementById('share-add-calendar');
+    if (addCalendar) {
+      addCalendar.addEventListener('click', () => {
+        try {
+          const matches = getFilteredMatches();
+          const ics = generateICS(matches);
+          const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'wc2026-schedule.ics';
+          a.click();
+          URL.revokeObjectURL(a.href);
+          const count = matches.length;
+          showStatus(addCalendar, `${count} match${count !== 1 ? 'es' : ''}!`);
+        } catch (e) {
+          console.error(e);
+          showStatus(addCalendar, 'Failed');
+        }
+      });
+    }
+  }
+
+  function getFilteredMatches() {
+    const teamEl = document.getElementById('filter-team');
+    const venueEl = document.getElementById('filter-venue');
+    const groupEl = document.getElementById('filter-group');
+    const stageEl = document.getElementById('filter-stage');
+    const f = {
+      team: teamEl ? teamEl.value : '',
+      venue: venueEl ? venueEl.value : '',
+      group: groupEl ? groupEl.value : '',
+      stage: stageEl ? stageEl.value : '',
+    };
+    return allMatches.filter(m => {
+      if (f.team && m.homeTeam !== f.team && m.awayTeam !== f.team) return false;
+      if (f.venue && m.venue !== f.venue) return false;
+      if (f.group && m.group !== f.group) return false;
+      if (f.stage && m.stage !== f.stage) return false;
+      return true;
+    });
+  }
+
+  function generateICS(matches) {
+    const lines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//WC26 Schedule//wc-26-schedule.com//EN',
+      'CALSCALE:GREGORIAN',
+      'X-WR-CALNAME:FIFA World Cup 2026',
+    ];
+
+    matches.forEach(m => {
+      const home = displayTeamName(m.homeTeam);
+      const away = displayTeamName(m.awayTeam);
+      const start = m.utcDate.replace(/[-:]/g, '').replace('.000', '');
+      // Assume 2 hour match duration
+      const endDate = new Date(m.utcDate);
+      endDate.setHours(endDate.getHours() + 2);
+      const end = endDate.toISOString().replace(/[-:]/g, '').replace('.000', '');
+
+      const groupLabel = m.group ? m.group.replace('GROUP_', 'Group ').replace('Group ', 'Group ') : '';
+      const stageLabel = STAGE_LABELS[m.stage] || m.stage;
+      const description = [
+        `FIFA World Cup 2026`,
+        groupLabel ? `${groupLabel} - ${stageLabel}` : stageLabel,
+        `wc-26-schedule.com`,
+      ].join('\\n');
+
+      lines.push(
+        'BEGIN:VEVENT',
+        `DTSTART:${start}`,
+        `DTEND:${end}`,
+        `SUMMARY:${home} vs ${away}`,
+        `LOCATION:${m.venue || 'TBD'}`,
+        `DESCRIPTION:${description}`,
+        `UID:wc2026-${m.id}@wc-26-schedule.com`,
+        'END:VEVENT',
+      );
+    });
+
+    lines.push('END:VCALENDAR');
+    return lines.join('\r\n');
   }
 
   function setTz(tz) { currentTz = tz; }

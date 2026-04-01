@@ -172,6 +172,11 @@ TEMPLATE = '''<!DOCTYPE html>
         <span class="share-sheet-label">Download schedule</span>
         <span class="share-sheet-status"></span>
       </button>
+      <button id="share-add-calendar" class="share-sheet-action">
+        <span class="share-sheet-icon">&#128197;</span>
+        <span class="share-sheet-label">Add to calendar</span>
+        <span class="share-sheet-status"></span>
+      </button>
     </div>
   </div>
 

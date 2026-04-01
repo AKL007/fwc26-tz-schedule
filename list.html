@@ -10,10 +10,6 @@
 </head>
 <body>
   <header>
-    <nav class="view-nav">
-      <a href="index.html">Timeline</a>
-      <a href="list.html" class="active">List</a>
-    </nav>
     <h1>FIFA World Cup 2026</h1>
     <div class="subtitle-row">
       <p class="subtitle">Match Schedule</p>
@@ -22,6 +18,21 @@
         <span id="tz-label"></span>
         <button id="tz-change" type="button" title="Change timezone">Change</button>
         <select id="tz-select" class="hidden"></select>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="header-actions-side header-actions-right">
+        <nav class="view-nav">
+          <a href="index.html">Timeline</a>
+          <a href="list.html" class="active">List</a>
+        </nav>
+      </div>
+      <span class="divider">|</span>
+      <div class="header-actions-side header-actions-left">
+        <button id="share-btn" type="button" class="share-btn" title="Share">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          <span>Share</span>
+        </button>
       </div>
     </div>
   </header>

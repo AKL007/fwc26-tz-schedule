@@ -3,7 +3,7 @@
 
   const { GROUP_COLORS, STAGE_COLORS, STAGE_LABELS,
     getLocalDateKey, esc, getMatchColor, isRealTeam, teamHtml, displayTeamName, formatLastUpdated,
-    detectTimezone, initTimezoneUI, loadMatches,
+    detectTimezone, initTimezoneUI, initShareButton, loadMatches,
     setTz, getTz, getMatches } = window.WC;
 
   const DATE_COL_WIDTH = 120;  // px for sticky date column
@@ -380,6 +380,7 @@
     populateFilterOptions(getMatches());
     restoreFiltersFromURL();
     initTimezoneUI(render);
+    initShareButton();
     initFilters();
     syncFiltersToURL();
     render();

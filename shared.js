@@ -180,6 +180,28 @@ window.WC = (function () {
     return `Last updated: ${day}${suffix} ${month}, ${year} ${time}`;
   }
 
+  function initShareButton() {
+    const btn = document.getElementById('share-btn');
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      const url = window.location.href;
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobile && navigator.share) {
+        try {
+          await navigator.share({ title: 'FIFA World Cup 2026 Schedule', url });
+        } catch (e) { /* user cancelled */ }
+      } else {
+        await navigator.clipboard.writeText(url);
+        btn.classList.add('shared');
+        btn.title = 'Copied!';
+        setTimeout(() => {
+          btn.classList.remove('shared');
+          btn.title = 'Share';
+        }, 2000);
+      }
+    });
+  }
+
   function setTz(tz) { currentTz = tz; }
   function getTz() { return currentTz; }
   function getMatches() { return allMatches; }
@@ -188,7 +210,7 @@ window.WC = (function () {
     STAGE_LABELS, COMMON_TIMEZONES, GROUP_COLORS, STAGE_COLORS,
     detectTimezone, formatTime, formatDate, formatDateShort,
     getLocalDateKey, getLocalHour, esc, getMatchColor,
-    isRealTeam, teamHtml, displayTeamName, formatLastUpdated, initTimezoneUI, loadMatches,
+    isRealTeam, teamHtml, displayTeamName, formatLastUpdated, initTimezoneUI, initShareButton, loadMatches,
     setTz, getTz, getMatches,
   };
 })();

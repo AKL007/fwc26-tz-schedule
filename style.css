@@ -17,11 +17,61 @@
   --max-width: 720px;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.header-actions-side {
+  flex: 1;
+  display: flex;
+}
+
+.header-actions-right {
+  justify-content: flex-end;
+}
+
+.header-actions-left {
+  justify-content: flex-start;
+}
+
+.header-actions .divider {
+  color: var(--border);
+  font-size: 0.85rem;
+  font-weight: 300;
+  user-select: none;
+}
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.share-btn:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.share-btn.shared {
+  color: #4caf50;
+}
+
 .view-nav {
-  position: absolute;
-  top: 0.6rem;
-  right: 0.75rem;
-  z-index: 30;
   display: flex;
   gap: 0;
   background: var(--surface);

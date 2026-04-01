@@ -2,7 +2,7 @@
   'use strict';
 
   const { GROUP_COLORS, STAGE_COLORS, STAGE_LABELS,
-    getLocalDateKey, esc, getMatchColor, isRealTeam, teamHtml,
+    getLocalDateKey, esc, getMatchColor, isRealTeam, teamHtml, displayTeamName, formatLastUpdated,
     detectTimezone, initTimezoneUI, loadMatches,
     setTz, getTz, getMatches } = window.WC;
 
@@ -50,7 +50,7 @@
       stages.add(m.stage);
     });
 
-    fillSelect('filter-team', [...teams].sort(), 'All Teams');
+    fillSelect('filter-team', [...teams].sort(), 'All Teams', displayTeamName);
     fillSelect('filter-venue', [...venues].sort(), 'All Venues');
     fillSelect('filter-group', [...groups].sort((a, b) => a.localeCompare(b)), 'All Groups', v => 'Group ' + v.replace('Group ', '').replace('GROUP_', ''));
     fillSelect('filter-stage', [...stages].sort((a, b) => {
@@ -298,7 +298,7 @@
         const homeLabel = homeReal ? esc(home) : `<span class="tl-tbd">${esc(home)}</span>`;
         const awayLabel = awayReal ? esc(away) : `<span class="tl-tbd">${esc(away)}</span>`;
 
-        html += `<div class="tl-match${bothTbd ? ' tl-match-tbd' : ''}" data-match-id="${m.id}" style="left:${left}px;top:${top}px;width:${width}px;height:${blockH}px;background:${blockColor};" title="${esc(m.homeTeam)} v ${esc(m.awayTeam)}\n${esc(m.venue)}">`;
+        html += `<div class="tl-match${bothTbd ? ' tl-match-tbd' : ''}" data-match-id="${m.id}" style="left:${left}px;top:${top}px;width:${width}px;height:${blockH}px;background:${blockColor};" title="${esc(displayTeamName(m.homeTeam))} v ${esc(displayTeamName(m.awayTeam))}\n${esc(m.venue)}">`;
         if (numLabel) html += `<span class="tl-match-num">${numLabel}</span>`;
         html += `<span class="tl-match-label">${homeLabel} v ${awayLabel}</span>`;
         if (groupLetter) html += `<span class="tl-match-group">${groupLetter}</span>`;
@@ -314,11 +314,18 @@
   }
 
   function shortenTeam(name) {
+    const display = displayTeamName(name);
     const map = {
-      'South Africa': 'RSA', 'South Korea': 'KOR', 'Saudi Arabia': 'KSA',
-      'New Zealand': 'NZL', 'Ivory Coast': 'CIV', 'Costa Rica': 'CRC',
-      'DR Congo': 'COD', 'Cape Verde': 'CPV',
+      'South Africa': 'RSA', 'Korea Republic': 'KOR', 'South Korea': 'KOR',
+      'Saudi Arabia': 'KSA', 'New Zealand': 'NZL',
+      "Côte d'Ivoire": 'CIV', 'Ivory Coast': 'CIV',
+      'Costa Rica': 'CRC', 'DR Congo': 'COD',
+      'Cabo Verde': 'CPV', 'Cape Verde': 'CPV',
+      'Czechia': 'CZE', 'Czech Republic': 'CZE',
+      'Türkiye': 'TÜR', 'Turkey': 'TÜR',
+      'Bosnia & Herzegovina': 'BIH',
     };
+    if (map[display]) return map[display];
     if (map[name]) return map[name];
     if (name.startsWith('1st ')) return '1' + name.replace('1st Group ', '');
     if (name.startsWith('2nd ')) return '2' + name.replace('2nd Group ', '');
@@ -333,8 +340,11 @@
     const legend = document.getElementById('timeline-legend');
     let html = '';
 
+    const seen = new Set();
     for (const [group, color] of Object.entries(GROUP_COLORS)) {
-      const letter = group.replace('Group ', '');
+      const letter = group.replace('Group ', '').replace('GROUP_', '');
+      if (seen.has(letter)) continue;
+      seen.add(letter);
       html += `<div class="legend-item"><div class="legend-swatch" style="background:${color}"></div><span>Grp ${letter}</span></div>`;
     }
 
@@ -353,8 +363,7 @@
 
     const updated = document.getElementById('last-updated');
     if (data.lastUpdated) {
-      const d = new Date(data.lastUpdated);
-      updated.textContent = `Last updated: ${d.toLocaleDateString()} ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+      updated.textContent = formatLastUpdated(data.lastUpdated);
     }
 
     populateFilterOptions(getMatches());

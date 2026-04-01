@@ -2,7 +2,7 @@
   'use strict';
 
   const { STAGE_LABELS, formatTime, formatDate, getLocalDateKey,
-    esc, isRealTeam, teamHtml, detectTimezone, initTimezoneUI, loadMatches,
+    esc, isRealTeam, teamHtml, displayTeamName, formatLastUpdated, detectTimezone, initTimezoneUI, loadMatches,
     setTz, getTz, getMatches } = window.WC;
 
   // --- Filters ---
@@ -41,7 +41,7 @@
       stages.add(m.stage);
     });
 
-    fillSelect('filter-team', [...teams].sort(), 'All Teams');
+    fillSelect('filter-team', [...teams].sort(), 'All Teams', displayTeamName);
     fillSelect('filter-venue', [...venues].sort(), 'All Venues');
     fillSelect('filter-group', [...groups].sort((a, b) => a.localeCompare(b)), 'All Groups', v => 'Group ' + v.replace('Group ', '').replace('GROUP_', ''));
     fillSelect('filter-stage', [...stages].sort((a, b) => {
@@ -167,8 +167,7 @@
 
     const updated = document.getElementById('last-updated');
     if (data.lastUpdated) {
-      const d = new Date(data.lastUpdated);
-      updated.textContent = `Last updated: ${d.toLocaleDateString()} ${d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+      updated.textContent = formatLastUpdated(data.lastUpdated);
     }
 
     populateFilterOptions(getMatches());

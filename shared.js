@@ -2,6 +2,20 @@
 window.WC = (function () {
   'use strict';
 
+  const TEAM_DISPLAY_NAMES = {
+    'Turkey': 'Türkiye',
+    'South Korea': 'Korea Republic',
+    'Ivory Coast': "Côte d'Ivoire",
+    'Czech Republic': 'Czechia',
+    'DR Congo': 'DR Congo',
+    'Bosnia & Herzegovina': 'Bosnia & Herzegovina',
+    'Cape Verde': 'Cabo Verde',
+  };
+
+  function displayTeamName(name) {
+    return TEAM_DISPLAY_NAMES[name] || name;
+  }
+
   const STAGE_LABELS = {
     GROUP_STAGE: 'Group',
     ROUND_OF_32: 'R32',
@@ -142,9 +156,10 @@ window.WC = (function () {
     return data;
   }
 
-  function teamHtml(name, escaped) {
-    if (isRealTeam(name)) return escaped || esc(name);
-    return `<span class="tbd-chip">${escaped || esc(name)}</span>`;
+  function teamHtml(name) {
+    const display = displayTeamName(name);
+    if (isRealTeam(name)) return esc(display);
+    return `<span class="tbd-chip">${esc(display)}</span>`;
   }
 
   function isRealTeam(name) {
@@ -155,6 +170,16 @@ window.WC = (function () {
     return true;
   }
 
+  function formatLastUpdated(isoDate) {
+    const d = new Date(isoDate);
+    const day = d.getDate();
+    const suffix = [, 'st', 'nd', 'rd'][day % 10 > 3 ? 0 : (day % 100 - day % 10 !== 10) * (day % 10)] || 'th';
+    const month = d.toLocaleDateString('en-US', { month: 'long' });
+    const year = d.getFullYear();
+    const time = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return `Last updated: ${day}${suffix} ${month}, ${year} ${time}`;
+  }
+
   function setTz(tz) { currentTz = tz; }
   function getTz() { return currentTz; }
   function getMatches() { return allMatches; }
@@ -163,7 +188,7 @@ window.WC = (function () {
     STAGE_LABELS, COMMON_TIMEZONES, GROUP_COLORS, STAGE_COLORS,
     detectTimezone, formatTime, formatDate, formatDateShort,
     getLocalDateKey, getLocalHour, esc, getMatchColor,
-    isRealTeam, teamHtml, initTimezoneUI, loadMatches,
+    isRealTeam, teamHtml, displayTeamName, formatLastUpdated, initTimezoneUI, loadMatches,
     setTz, getTz, getMatches,
   };
 })();

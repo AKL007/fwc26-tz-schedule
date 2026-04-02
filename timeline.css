@@ -9,7 +9,8 @@
 }
 
 .timeline-wrapper {
-  overflow-x: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 0 0 1rem;
   min-height: 100vh;
 }

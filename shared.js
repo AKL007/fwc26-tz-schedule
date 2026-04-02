@@ -414,6 +414,33 @@ window.WC = (function () {
     }
   }
 
+  const FILTER_PLACEHOLDERS = {
+    team: 'All Teams', venue: 'All Venues', group: 'All Groups', stage: 'All Stages',
+  };
+
+  function updateTriggerLabel(type) {
+    const dropdown = document.querySelector(`.filter-dropdown[data-type="${type}"]`);
+    if (!dropdown) return;
+    const trigger = dropdown.querySelector('.filter-trigger');
+    const count = activeFilters[type].length;
+    if (count === 0) {
+      trigger.textContent = FILTER_PLACEHOLDERS[type];
+      trigger.classList.remove('has-active');
+    } else {
+      trigger.textContent = `${FILTER_PLACEHOLDERS[type]} (${count})`;
+      trigger.classList.add('has-active');
+    }
+  }
+
+  function updateCheckboxStates(type) {
+    const dropdown = document.querySelector(`.filter-dropdown[data-type="${type}"]`);
+    if (!dropdown) return;
+    dropdown.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.checked = activeFilters[type].includes(cb.value);
+    });
+    updateTriggerLabel(type);
+  }
+
   function renderChips(onChangeCallback) {
     const container = document.getElementById('filter-chips');
     if (!container) return;
@@ -442,10 +469,10 @@ window.WC = (function () {
 
     container.innerHTML = html;
 
-    // Chip click handlers
     container.querySelectorAll('.filter-chip').forEach(chip => {
       chip.addEventListener('click', () => {
         removeFilter(chip.dataset.type, chip.dataset.value);
+        updateCheckboxStates(chip.dataset.type);
         syncFiltersToURL();
         renderChips(onChangeCallback);
         if (onChangeCallback) onChangeCallback();
@@ -456,6 +483,7 @@ window.WC = (function () {
     if (clearBtn) {
       clearBtn.addEventListener('click', () => {
         clearAllFilters();
+        for (const type of Object.keys(activeFilters)) updateCheckboxStates(type);
         syncFiltersToURL();
         renderChips(onChangeCallback);
         if (onChangeCallback) onChangeCallback();
@@ -466,19 +494,46 @@ window.WC = (function () {
   function initMultiFilters(onChangeCallback) {
     restoreFiltersFromURL();
 
-    ['filter-team', 'filter-venue', 'filter-group', 'filter-stage'].forEach(id => {
-      const sel = document.getElementById(id);
-      if (!sel) return;
-      const type = id.replace('filter-', '');
-      sel.addEventListener('change', () => {
-        if (sel.value) {
-          addFilter(type, sel.value);
-          sel.value = ''; // reset dropdown
-          syncFiltersToURL();
-          renderChips(onChangeCallback);
-          if (onChangeCallback) onChangeCallback();
-        }
+    document.querySelectorAll('.filter-dropdown').forEach(dropdown => {
+      const type = dropdown.dataset.type;
+      const trigger = dropdown.querySelector('.filter-trigger');
+      const menu = dropdown.querySelector('.filter-menu');
+
+      // Toggle dropdown
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Close other open menus
+        document.querySelectorAll('.filter-menu').forEach(m => {
+          if (m !== menu) m.classList.add('hidden');
+        });
+        menu.classList.toggle('hidden');
       });
+
+      // Handle checkbox changes
+      menu.addEventListener('change', (e) => {
+        if (e.target.type !== 'checkbox') return;
+        if (e.target.checked) {
+          addFilter(type, e.target.value);
+        } else {
+          removeFilter(type, e.target.value);
+        }
+        updateTriggerLabel(type);
+        syncFiltersToURL();
+        renderChips(onChangeCallback);
+        if (onChangeCallback) onChangeCallback();
+      });
+
+      updateTriggerLabel(type);
+    });
+
+    // Close menus on outside click
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.filter-menu').forEach(m => m.classList.add('hidden'));
+    });
+
+    // Prevent menu clicks from closing
+    document.querySelectorAll('.filter-menu').forEach(m => {
+      m.addEventListener('click', e => e.stopPropagation());
     });
 
     renderChips(onChangeCallback);

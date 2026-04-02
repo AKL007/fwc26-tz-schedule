@@ -54,18 +54,22 @@
   </header>
 
   <nav class="filters">
-    <select id="filter-team" aria-label="Filter by team">
-      <option value="">All Teams</option>
-    </select>
-    <select id="filter-venue" aria-label="Filter by venue">
-      <option value="">All Venues</option>
-    </select>
-    <select id="filter-group" aria-label="Filter by group">
-      <option value="">All Groups</option>
-    </select>
-    <select id="filter-stage" aria-label="Filter by stage">
-      <option value="">All Stages</option>
-    </select>
+    <div class="filter-dropdown" data-type="team">
+      <button class="filter-trigger" type="button">All Teams</button>
+      <div class="filter-menu hidden"></div>
+    </div>
+    <div class="filter-dropdown" data-type="venue">
+      <button class="filter-trigger" type="button">All Venues</button>
+      <div class="filter-menu hidden"></div>
+    </div>
+    <div class="filter-dropdown" data-type="group">
+      <button class="filter-trigger" type="button">All Groups</button>
+      <div class="filter-menu hidden"></div>
+    </div>
+    <div class="filter-dropdown" data-type="stage">
+      <button class="filter-trigger" type="button">All Stages</button>
+      <div class="filter-menu hidden"></div>
+    </div>
   </nav>
   <div id="filter-chips" class="filter-chips"></div>
 

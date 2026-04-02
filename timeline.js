@@ -28,21 +28,23 @@
       stages.add(m.stage);
     });
 
-    fillSelect('filter-team', [...teams].sort(), 'All Teams', displayTeamName);
-    fillSelect('filter-venue', [...venues].sort(), 'All Venues');
-    fillSelect('filter-group', [...groups].sort((a, b) => a.localeCompare(b)), 'All Groups', v => 'Group ' + v.replace('Group ', '').replace('GROUP_', ''));
-    fillSelect('filter-stage', [...stages].sort((a, b) => {
+    fillMenu('team', [...teams].sort(), displayTeamName);
+    fillMenu('venue', [...venues].sort());
+    fillMenu('group', [...groups].sort((a, b) => a.localeCompare(b)), v => 'Group ' + v.replace('Group ', '').replace('GROUP_', ''));
+    fillMenu('stage', [...stages].sort((a, b) => {
       const order = Object.keys(STAGE_LABELS);
       return order.indexOf(a) - order.indexOf(b);
-    }), 'All Stages', v => STAGE_LABELS[v] || v);
+    }), v => STAGE_LABELS[v] || v);
   }
 
-  function fillSelect(id, values, placeholder, labelFn) {
-    const sel = document.getElementById(id);
-    sel.innerHTML = `<option value="">${placeholder}</option>` +
-      values.map(v =>
-        `<option value="${v}">${labelFn ? labelFn(v) : v}</option>`
-      ).join('');
+  function fillMenu(type, values, labelFn) {
+    const dropdown = document.querySelector(`.filter-dropdown[data-type="${type}"]`);
+    if (!dropdown) return;
+    const menu = dropdown.querySelector('.filter-menu');
+    const active = window.WC.getActiveFilters()[type] || [];
+    menu.innerHTML = values.filter(v => v).map(v =>
+      `<label><input type="checkbox" value="${esc(v)}" ${active.includes(v) ? 'checked' : ''}> ${esc(labelFn ? labelFn(v) : v)}</label>`
+    ).join('');
   }
 
   function applyFilterHighlights() {

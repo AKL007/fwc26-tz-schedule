@@ -329,26 +329,85 @@ h1 {
   clip-path: inset(0 -100vmax);
 }
 
-.filters select {
+.filter-dropdown {
   flex: 1 1 calc(50% - 0.25rem);
   min-width: 0;
-  padding: 0.5rem 0.75rem;
+  position: relative;
+}
+
+.filter-trigger {
+  width: 100%;
+  padding: 0.5rem 1.5rem 0.5rem 0.75rem;
   background: var(--surface);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   font-size: 0.85rem;
   cursor: pointer;
-  appearance: none;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238b92a5'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.5rem center;
-  padding-right: 1.5rem;
 }
 
-.filters select:focus {
-  outline: none;
+.filter-trigger:hover {
+  border-color: var(--text-secondary);
+}
+
+.filter-trigger.has-active {
   border-color: var(--accent-light);
+  color: var(--accent-light);
+}
+
+.filter-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  min-width: 200px;
+  max-height: 280px;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  z-index: 50;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.filter-menu.hidden {
+  display: none;
+}
+
+.filter-menu label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.1s;
+  white-space: nowrap;
+}
+
+.filter-menu label:hover {
+  background: var(--surface-hover);
+}
+
+.filter-menu input[type="checkbox"] {
+  accent-color: var(--accent-light);
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.filter-menu-empty {
+  padding: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 .filter-chips {
@@ -410,21 +469,6 @@ h1 {
 
 .filter-chips .clear-all:hover {
   background: var(--surface);
-}
-
-#filter-clear {
-  flex: 1 1 100%;
-  padding: 0.4rem;
-  background: var(--surface);
-  color: var(--accent-light);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-size: 0.8rem;
-  cursor: pointer;
-}
-
-#filter-clear:hover {
-  background: var(--surface-hover);
 }
 
 main {
@@ -587,13 +631,9 @@ footer a:hover {
 @media (min-width: 640px) {
   h1 { font-size: 2rem; }
 
-  .filters select {
+  .filter-dropdown {
     flex: 1 1 0;
     min-width: 120px;
-  }
-
-  #filter-clear {
-    flex: 0 0 auto;
   }
 
   .match-card {

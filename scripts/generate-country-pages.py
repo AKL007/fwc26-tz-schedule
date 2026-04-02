@@ -55,8 +55,8 @@ TEMPLATE = '''<!DOCTYPE html>
   <meta name="twitter:description" content="All World Cup 2026 kick-off times in {tz_label}.">
 
   <link rel="preload" href="/data/matches.json" as="fetch">
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../timeline.css">
+  <link rel="stylesheet" href="../style.css?v=2">
+  <link rel="stylesheet" href="../timeline.css?v=2">
 
   <script type="application/ld+json">
   {{
@@ -186,8 +186,8 @@ TEMPLATE = '''<!DOCTYPE html>
     </div>
   </div>
 
-  <script src="../shared.js" defer></script>
-  <script src="../timeline.js" defer></script>
+  <script src="../shared.js?v=2" defer></script>
+  <script src="../timeline.js?v=2" defer></script>
 </body>
 </html>
 '''

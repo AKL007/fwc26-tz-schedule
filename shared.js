@@ -218,9 +218,25 @@ window.WC = (function () {
     wrapper.appendChild(title);
 
     const tzInfo = document.createElement('div');
-    tzInfo.style.cssText = 'color:#8b92a5;font-family:-apple-system,sans-serif;font-size:15px;text-align:center;margin-bottom:12px;';
+    tzInfo.style.cssText = 'color:#8b92a5;font-family:-apple-system,sans-serif;font-size:15px;text-align:center;margin-bottom:4px;';
     tzInfo.textContent = currentTz.replace(/_/g, ' ') + ' · wc-26-schedule.com';
     wrapper.appendChild(tzInfo);
+
+    // Show active filters
+    if (hasAnyFilter()) {
+      const filterInfo = document.createElement('div');
+      filterInfo.style.cssText = 'color:#c2185b;font-family:-apple-system,sans-serif;font-size:12px;text-align:center;margin-bottom:12px;';
+      const parts = [];
+      const f = activeFilters;
+      if (f.team.length) parts.push('Teams: ' + f.team.map(displayTeamName).join(', '));
+      if (f.venue.length) parts.push('Venues: ' + f.venue.join(', '));
+      if (f.group.length) parts.push('Groups: ' + f.group.map(g => g.replace('GROUP_', '').replace('Group ', '')).join(', '));
+      if (f.stage.length) parts.push('Stages: ' + f.stage.map(s => STAGE_LABELS[s] || s).join(', '));
+      filterInfo.textContent = parts.join(' · ');
+      wrapper.appendChild(filterInfo);
+    } else {
+      tzInfo.style.marginBottom = '12px';
+    }
 
     if (header) wrapper.appendChild(header.cloneNode(true));
     wrapper.appendChild(target.cloneNode(true));

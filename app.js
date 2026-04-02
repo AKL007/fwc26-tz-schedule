@@ -100,21 +100,31 @@
 
   // --- Init ---
 
+  function showError(message) {
+    var container = document.getElementById('match-list');
+    container.innerHTML = '<div class="error-state">' + message + '<br><button onclick="location.reload()">Retry</button></div>';
+  }
+
   async function init() {
-    setTz(detectTimezone());
+    try {
+      setTz(detectTimezone());
 
-    const data = await loadMatches();
+      const data = await loadMatches();
 
-    const updated = document.getElementById('last-updated');
-    if (data.lastUpdated) {
-      updated.textContent = formatLastUpdated(data.lastUpdated);
+      const updated = document.getElementById('last-updated');
+      if (data.lastUpdated) {
+        updated.textContent = formatLastUpdated(data.lastUpdated);
+      }
+
+      populateFilterOptions(getMatches());
+      initTimezoneUI(render);
+      initShareSheet();
+      initMultiFilters(render);
+      render();
+    } catch (err) {
+      console.error('Failed to initialize:', err);
+      showError('Unable to load the schedule. Please check your connection and try again.');
     }
-
-    populateFilterOptions(getMatches());
-    initTimezoneUI(render);
-    initShareSheet();
-    initMultiFilters(render);
-    render();
   }
 
   if (document.readyState === 'loading') {

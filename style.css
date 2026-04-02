@@ -625,6 +625,36 @@ footer a:hover {
   font-style: italic;
 }
 
+.loading-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.error-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--accent-light);
+  font-size: 0.9rem;
+}
+
+.error-state button {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.4rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.error-state button:hover {
+  background: var(--surface-hover);
+}
+
 .hidden {
   display: none !important;
 }

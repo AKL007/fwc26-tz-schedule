@@ -351,6 +351,67 @@ h1 {
   border-color: var(--accent-light);
 }
 
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1rem 0.5rem;
+}
+
+.filter-chips:empty {
+  display: none;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.filter-chip:hover {
+  background: var(--surface-hover);
+}
+
+.filter-chip .chip-type {
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+
+.filter-chip .chip-remove {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.filter-chip:hover .chip-remove {
+  color: var(--accent-light);
+}
+
+.filter-chips .clear-all {
+  padding: 0.2rem 0.5rem;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--accent-light);
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.filter-chips .clear-all:hover {
+  background: var(--surface);
+}
+
 #filter-clear {
   flex: 1 1 100%;
   padding: 0.4rem;

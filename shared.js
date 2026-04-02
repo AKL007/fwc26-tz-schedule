@@ -140,12 +140,21 @@ window.WC = (function () {
       label.textContent = currentTz.replace(/_/g, ' ');
       sel.classList.add('hidden');
       btn.classList.remove('hidden');
+      updateNavLinks();
       if (onChangeCallback) onChangeCallback();
     });
 
     sel.addEventListener('blur', () => {
       sel.classList.add('hidden');
       btn.classList.remove('hidden');
+    });
+  }
+
+  function updateNavLinks() {
+    const qs = location.search;
+    document.querySelectorAll('.view-nav a').forEach(a => {
+      const base = a.getAttribute('href').split('?')[0];
+      a.href = base + qs;
     });
   }
 
@@ -351,24 +360,129 @@ window.WC = (function () {
     }
   }
 
+  // --- Multi-filter state ---
+  const activeFilters = { team: [], venue: [], group: [], stage: [] };
+
+  function getActiveFilters() { return activeFilters; }
+
+  function addFilter(type, value) {
+    if (!value || activeFilters[type].includes(value)) return;
+    activeFilters[type].push(value);
+  }
+
+  function removeFilter(type, value) {
+    activeFilters[type] = activeFilters[type].filter(v => v !== value);
+  }
+
+  function clearAllFilters() {
+    for (const key in activeFilters) activeFilters[key] = [];
+  }
+
+  function hasAnyFilter() {
+    return Object.values(activeFilters).some(arr => arr.length > 0);
+  }
+
+  function matchPassesFilters(m) {
+    const f = activeFilters;
+    if (f.team.length && !f.team.some(t => m.homeTeam === t || m.awayTeam === t)) return false;
+    if (f.venue.length && !f.venue.includes(m.venue)) return false;
+    if (f.group.length && !f.group.includes(m.group)) return false;
+    if (f.stage.length && !f.stage.includes(m.stage)) return false;
+    return true;
+  }
+
   function getFilteredMatches() {
-    const teamEl = document.getElementById('filter-team');
-    const venueEl = document.getElementById('filter-venue');
-    const groupEl = document.getElementById('filter-group');
-    const stageEl = document.getElementById('filter-stage');
-    const f = {
-      team: teamEl ? teamEl.value : '',
-      venue: venueEl ? venueEl.value : '',
-      group: groupEl ? groupEl.value : '',
-      stage: stageEl ? stageEl.value : '',
-    };
-    return allMatches.filter(m => {
-      if (f.team && m.homeTeam !== f.team && m.awayTeam !== f.team) return false;
-      if (f.venue && m.venue !== f.venue) return false;
-      if (f.group && m.group !== f.group) return false;
-      if (f.stage && m.stage !== f.stage) return false;
-      return true;
+    return allMatches.filter(matchPassesFilters);
+  }
+
+  function syncFiltersToURL() {
+    const params = new URLSearchParams(location.search);
+    for (const key of ['team', 'venue', 'group', 'stage']) {
+      if (activeFilters[key].length) params.set(key, activeFilters[key].join(','));
+      else params.delete(key);
+    }
+    params.set('tz', currentTz);
+    history.replaceState(null, '', '?' + params.toString());
+    updateNavLinks();
+  }
+
+  function restoreFiltersFromURL() {
+    const params = new URLSearchParams(location.search);
+    for (const key of ['team', 'venue', 'group', 'stage']) {
+      const val = params.get(key);
+      if (val) activeFilters[key] = val.split(',');
+    }
+  }
+
+  function renderChips(onChangeCallback) {
+    const container = document.getElementById('filter-chips');
+    if (!container) return;
+
+    const typeLabels = { team: 'Team', venue: 'Venue', group: 'Group', stage: 'Stage' };
+    let html = '';
+
+    for (const [type, values] of Object.entries(activeFilters)) {
+      values.forEach(val => {
+        let label = val;
+        if (type === 'team') label = displayTeamName(val);
+        else if (type === 'group') label = 'Group ' + val.replace('GROUP_', '').replace('Group ', '');
+        else if (type === 'stage') label = STAGE_LABELS[val] || val;
+
+        html += `<button class="filter-chip" data-type="${type}" data-value="${esc(val)}">
+          <span class="chip-type">${typeLabels[type]}</span>
+          <span>${esc(label)}</span>
+          <span class="chip-remove">&times;</span>
+        </button>`;
+      });
+    }
+
+    if (hasAnyFilter()) {
+      html += `<button class="clear-all">Clear all</button>`;
+    }
+
+    container.innerHTML = html;
+
+    // Chip click handlers
+    container.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        removeFilter(chip.dataset.type, chip.dataset.value);
+        syncFiltersToURL();
+        renderChips(onChangeCallback);
+        if (onChangeCallback) onChangeCallback();
+      });
     });
+
+    const clearBtn = container.querySelector('.clear-all');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        clearAllFilters();
+        syncFiltersToURL();
+        renderChips(onChangeCallback);
+        if (onChangeCallback) onChangeCallback();
+      });
+    }
+  }
+
+  function initMultiFilters(onChangeCallback) {
+    restoreFiltersFromURL();
+
+    ['filter-team', 'filter-venue', 'filter-group', 'filter-stage'].forEach(id => {
+      const sel = document.getElementById(id);
+      if (!sel) return;
+      const type = id.replace('filter-', '');
+      sel.addEventListener('change', () => {
+        if (sel.value) {
+          addFilter(type, sel.value);
+          sel.value = ''; // reset dropdown
+          syncFiltersToURL();
+          renderChips(onChangeCallback);
+          if (onChangeCallback) onChangeCallback();
+        }
+      });
+    });
+
+    renderChips(onChangeCallback);
+    updateNavLinks();
   }
 
   function generateICS(matches) {
@@ -421,7 +535,9 @@ window.WC = (function () {
     STAGE_LABELS, COMMON_TIMEZONES, GROUP_COLORS, STAGE_COLORS,
     detectTimezone, formatTime, formatDate, formatDateShort,
     getLocalDateKey, getLocalHour, esc, getMatchColor,
-    isRealTeam, teamHtml, displayTeamName, formatLastUpdated, initTimezoneUI, initShareSheet, loadMatches,
+    isRealTeam, teamHtml, displayTeamName, formatLastUpdated,
+    initTimezoneUI, initShareSheet, initMultiFilters, loadMatches,
+    getActiveFilters, hasAnyFilter, matchPassesFilters, getFilteredMatches,
     setTz, getTz, getMatches,
   };
 })();

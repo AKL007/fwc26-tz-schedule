@@ -136,8 +136,8 @@ TEMPLATE = '''<!DOCTYPE html>
     <button id="filter-clear" type="button" class="hidden">Clear filters</button>
   </nav>
 
-  <div class="timeline-wrapper">
-    <div id="timeline-header" class="timeline-header-sticky"></div>
+  <div id="timeline-header" class="timeline-header-sticky"></div>
+  <div class="timeline-wrapper" id="timeline-wrapper">
     <div id="timeline-grid" class="timeline-grid"></div>
   </div>
 

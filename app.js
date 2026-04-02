@@ -2,30 +2,12 @@
   'use strict';
 
   const { STAGE_LABELS, formatTime, formatDate, getLocalDateKey,
-    esc, isRealTeam, teamHtml, displayTeamName, formatLastUpdated, detectTimezone, initTimezoneUI, initShareSheet, loadMatches,
+    esc, isRealTeam, teamHtml, displayTeamName, formatLastUpdated,
+    detectTimezone, initTimezoneUI, initShareSheet, initMultiFilters, loadMatches,
+    getFilteredMatches,
     setTz, getTz, getMatches } = window.WC;
 
   // --- Filters ---
-
-  function getFilterState() {
-    return {
-      team: document.getElementById('filter-team').value,
-      venue: document.getElementById('filter-venue').value,
-      group: document.getElementById('filter-group').value,
-      stage: document.getElementById('filter-stage').value,
-    };
-  }
-
-  function applyFilters(matches) {
-    const f = getFilterState();
-    return matches.filter(m => {
-      if (f.team && m.homeTeam !== f.team && m.awayTeam !== f.team) return false;
-      if (f.venue && m.venue !== f.venue) return false;
-      if (f.group && m.group !== f.group) return false;
-      if (f.stage && m.stage !== f.stage) return false;
-      return true;
-    });
-  }
 
   function populateFilterOptions(matches) {
     const teams = new Set();
@@ -52,60 +34,16 @@
 
   function fillSelect(id, values, placeholder, labelFn) {
     const sel = document.getElementById(id);
-    const current = sel.value;
     sel.innerHTML = `<option value="">${placeholder}</option>` +
       values.map(v =>
-        `<option value="${v}" ${v === current ? 'selected' : ''}>${labelFn ? labelFn(v) : v}</option>`
+        `<option value="${v}">${labelFn ? labelFn(v) : v}</option>`
       ).join('');
-  }
-
-  function syncFiltersToURL() {
-    const params = new URLSearchParams(location.search);
-    const f = getFilterState();
-
-    ['team', 'venue', 'group', 'stage'].forEach(key => {
-      if (f[key]) params.set(key, f[key]);
-      else params.delete(key);
-    });
-
-    params.set('tz', getTz());
-    history.replaceState(null, '', '?' + params.toString());
-
-    const hasFilter = Object.values(f).some(v => v);
-    document.getElementById('filter-clear').classList.toggle('hidden', !hasFilter);
-  }
-
-  function restoreFiltersFromURL() {
-    const params = new URLSearchParams(location.search);
-    ['team', 'venue', 'group', 'stage'].forEach(key => {
-      const val = params.get(key);
-      if (val) {
-        document.getElementById('filter-' + key).value = val;
-      }
-    });
-  }
-
-  function initFilters() {
-    ['filter-team', 'filter-venue', 'filter-group', 'filter-stage'].forEach(id => {
-      document.getElementById(id).addEventListener('change', () => {
-        syncFiltersToURL();
-        render();
-      });
-    });
-
-    document.getElementById('filter-clear').addEventListener('click', () => {
-      ['filter-team', 'filter-venue', 'filter-group', 'filter-stage'].forEach(id => {
-        document.getElementById(id).value = '';
-      });
-      syncFiltersToURL();
-      render();
-    });
   }
 
   // --- Rendering ---
 
   function render() {
-    const filtered = applyFilters(getMatches());
+    const filtered = getFilteredMatches();
     const container = document.getElementById('match-list');
     const tz = getTz();
 
@@ -171,11 +109,9 @@
     }
 
     populateFilterOptions(getMatches());
-    restoreFiltersFromURL();
     initTimezoneUI(render);
     initShareSheet();
-    initFilters();
-    syncFiltersToURL();
+    initMultiFilters(render);
     render();
   }
 

@@ -3,9 +3,15 @@
   top: 0;
   z-index: 22;
   background: var(--bg);
-  overflow-x: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-bottom: 1px solid var(--border);
   min-height: 2rem;
+  scrollbar-width: none;
+}
+
+.timeline-header-sticky::-webkit-scrollbar {
+  display: none;
 }
 
 .timeline-wrapper {

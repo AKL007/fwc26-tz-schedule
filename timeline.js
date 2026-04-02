@@ -3,7 +3,8 @@
 
   const { GROUP_COLORS, STAGE_COLORS, STAGE_LABELS,
     getLocalDateKey, esc, getMatchColor, isRealTeam, teamHtml, displayTeamName, formatLastUpdated,
-    detectTimezone, initTimezoneUI, initShareSheet, loadMatches,
+    detectTimezone, initTimezoneUI, initShareSheet, initMultiFilters, loadMatches,
+    hasAnyFilter, matchPassesFilters,
     setTz, getTz, getMatches } = window.WC;
 
   const DATE_COL_WIDTH = 120;  // px for sticky date column
@@ -12,29 +13,6 @@
   const MIN_SLOT_WIDTH = 30;   // minimum px per 30-min slot
 
   // --- Filters ---
-
-  function getFilterState() {
-    return {
-      team: document.getElementById('filter-team').value,
-      venue: document.getElementById('filter-venue').value,
-      group: document.getElementById('filter-group').value,
-      stage: document.getElementById('filter-stage').value,
-    };
-  }
-
-  function matchesFilter(m) {
-    const f = getFilterState();
-    if (f.team && m.homeTeam !== f.team && m.awayTeam !== f.team) return false;
-    if (f.venue && m.venue !== f.venue) return false;
-    if (f.group && m.group !== f.group) return false;
-    if (f.stage && m.stage !== f.stage) return false;
-    return true;
-  }
-
-  function hasActiveFilter() {
-    const f = getFilterState();
-    return !!(f.team || f.venue || f.group || f.stage);
-  }
 
   function populateFilterOptions(matches) {
     const teams = new Set();
@@ -61,52 +39,14 @@
 
   function fillSelect(id, values, placeholder, labelFn) {
     const sel = document.getElementById(id);
-    const current = sel.value;
     sel.innerHTML = `<option value="">${placeholder}</option>` +
       values.map(v =>
-        `<option value="${v}" ${v === current ? 'selected' : ''}>${labelFn ? labelFn(v) : v}</option>`
+        `<option value="${v}">${labelFn ? labelFn(v) : v}</option>`
       ).join('');
   }
 
-  function syncFiltersToURL() {
-    const params = new URLSearchParams(location.search);
-    const f = getFilterState();
-    ['team', 'venue', 'group', 'stage'].forEach(key => {
-      if (f[key]) params.set(key, f[key]);
-      else params.delete(key);
-    });
-    params.set('tz', getTz());
-    history.replaceState(null, '', '?' + params.toString());
-    const has = Object.values(f).some(v => v);
-    document.getElementById('filter-clear').classList.toggle('hidden', !has);
-  }
-
-  function restoreFiltersFromURL() {
-    const params = new URLSearchParams(location.search);
-    ['team', 'venue', 'group', 'stage'].forEach(key => {
-      const val = params.get(key);
-      if (val) document.getElementById('filter-' + key).value = val;
-    });
-  }
-
-  function initFilters() {
-    ['filter-team', 'filter-venue', 'filter-group', 'filter-stage'].forEach(id => {
-      document.getElementById(id).addEventListener('change', () => {
-        syncFiltersToURL();
-        applyFilterHighlights();
-      });
-    });
-    document.getElementById('filter-clear').addEventListener('click', () => {
-      ['filter-team', 'filter-venue', 'filter-group', 'filter-stage'].forEach(id => {
-        document.getElementById(id).value = '';
-      });
-      syncFiltersToURL();
-      applyFilterHighlights();
-    });
-  }
-
   function applyFilterHighlights() {
-    const filtering = hasActiveFilter();
+    const filtering = hasAnyFilter();
     document.querySelectorAll('.tl-match').forEach(el => {
       if (!filtering) {
         el.classList.remove('tl-match-dimmed', 'tl-match-highlighted');
@@ -114,7 +54,7 @@
       }
       const id = parseInt(el.dataset.matchId, 10);
       const m = getMatches().find(match => match.id === id);
-      if (m && matchesFilter(m)) {
+      if (m && matchPassesFilters(m)) {
         el.classList.remove('tl-match-dimmed');
         el.classList.add('tl-match-highlighted');
       } else {
@@ -330,6 +270,24 @@
     if (filters && headerEl) {
       headerEl.style.top = (filters.offsetHeight - 1) + 'px';
     }
+
+    // Sync horizontal scroll between header and grid
+    const wrapper = document.getElementById('timeline-wrapper');
+    if (wrapper && headerEl) {
+      let syncing = false;
+      wrapper.addEventListener('scroll', () => {
+        if (syncing) return;
+        syncing = true;
+        headerEl.scrollLeft = wrapper.scrollLeft;
+        syncing = false;
+      });
+      headerEl.addEventListener('scroll', () => {
+        if (syncing) return;
+        syncing = true;
+        wrapper.scrollLeft = headerEl.scrollLeft;
+        syncing = false;
+      });
+    }
   }
 
   function shortenTeam(name) {
@@ -386,11 +344,9 @@
     }
 
     populateFilterOptions(getMatches());
-    restoreFiltersFromURL();
     initTimezoneUI(render);
     initShareSheet();
-    initFilters();
-    syncFiltersToURL();
+    initMultiFilters(applyFilterHighlights);
     render();
 
     let resizeTimer;

@@ -54,7 +54,7 @@ TEMPLATE = '''<!DOCTYPE html>
   <meta name="twitter:title" content="World Cup 2026 Schedule — {name} Times">
   <meta name="twitter:description" content="All World Cup 2026 kick-off times in {tz_label}.">
 
-  <link rel="preload" href="/data/matches.json" as="fetch" crossorigin>
+  <link rel="preload" href="/data/matches.json" as="fetch">
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../timeline.css">
 
@@ -144,7 +144,7 @@ TEMPLATE = '''<!DOCTYPE html>
 
   <div id="timeline-header" class="timeline-header-sticky"></div>
   <div class="timeline-wrapper" id="timeline-wrapper">
-    <div id="timeline-grid" class="timeline-grid"></div>
+    <div id="timeline-grid" class="timeline-grid"><div class="loading-state" id="loading-state">Loading schedule...</div></div>
   </div>
 
   <div class="timeline-legend" id="timeline-legend"></div>

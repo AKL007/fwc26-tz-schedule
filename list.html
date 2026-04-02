@@ -19,7 +19,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://wc-26-schedule.com/og-image.jpg">
 
-  <link rel="preload" href="/data/matches.json" as="fetch" crossorigin>
+  <link rel="preload" href="/data/matches.json" as="fetch">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -75,7 +75,9 @@
   </div>
   <div id="filter-chips" class="filter-chips"></div>
 
-  <main id="match-list"></main>
+  <main id="match-list">
+    <div class="loading-state" id="loading-state">Loading schedule...</div>
+  </main>
 
   <footer>
     <p>Times shown in your local timezone. <span id="last-updated"></span></p>

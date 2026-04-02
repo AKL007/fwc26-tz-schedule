@@ -37,16 +37,12 @@ def normalize_stage(stage):
     }
     return mapping.get(stage, stage)
 
-def load_existing(path):
-    """Load existing matches keyed by (utcDate, stage, group, matchday) for merging."""
+def load_venue_map():
+    """Load static venue map keyed by utcDate."""
+    path = os.path.join(os.path.dirname(__file__), '..', 'data', 'venues.json')
     try:
         with open(path) as f:
-            data = json.load(f)
-        lookup = {}
-        for m in data.get('matches', []):
-            key = (m['utcDate'], m.get('stage'), m.get('group'), m.get('matchday'))
-            lookup[key] = m
-        return lookup
+            return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
 
@@ -57,7 +53,7 @@ def main():
         sys.exit(1)
 
     out_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'matches.json')
-    existing = load_existing(out_path)
+    venue_map = load_venue_map()
 
     print('Fetching matches from football-data.org...')
     data = fetch(f'/competitions/{COMPETITION}/matches', api_key)
@@ -74,12 +70,10 @@ def main():
         matchday = m.get('matchday')
         utc_date = m['utcDate']
 
-        # Get venue from API, fall back to existing data
+        # Get venue from API, fall back to static venue map
         venue = m.get('venue', '') or ''
         if not venue:
-            key = (utc_date, stage, group, matchday)
-            prev = existing.get(key, {})
-            venue = prev.get('venue', '')
+            venue = venue_map.get(utc_date, '')
 
         matches.append({
             'id': m['id'],

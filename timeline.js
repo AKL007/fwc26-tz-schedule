@@ -268,7 +268,7 @@
     applyFilterHighlights();
 
     // Position sticky header below sticky filters (overlap by 1px to avoid gap)
-    const filters = document.querySelector('.filters');
+    const filters = document.querySelector('.filters-wrap');
     if (filters && headerEl) {
       headerEl.style.top = (filters.offsetHeight - 1) + 'px';
     }

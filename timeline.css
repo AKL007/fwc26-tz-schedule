@@ -195,6 +195,18 @@
   flex-shrink: 0;
 }
 
+.tl-match-kickoff {
+  display: none;
+  font-size: 0.6rem;
+  opacity: 0.7;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.tl-match:hover .tl-match-kickoff {
+  display: inline;
+}
+
 .tl-match-group {
   font-size: 0.9rem;
   font-weight: 800;

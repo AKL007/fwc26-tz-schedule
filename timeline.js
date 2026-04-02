@@ -2,7 +2,7 @@
   'use strict';
 
   const { GROUP_COLORS, STAGE_COLORS, STAGE_LABELS,
-    getLocalDateKey, esc, getMatchColor, isRealTeam, teamHtml, displayTeamName, formatLastUpdated,
+    getLocalDateKey, formatTime, esc, getMatchColor, isRealTeam, teamHtml, displayTeamName, formatLastUpdated,
     detectTimezone, initTimezoneUI, initShareSheet, initMultiFilters, loadMatches,
     hasAnyFilter, matchPassesFilters,
     setTz, getTz, getMatches } = window.WC;
@@ -252,10 +252,13 @@
         const awayFull = displayTeamName(m.awayTeam);
         const isAbbreviated = home !== homeFull || away !== awayFull;
 
-        html += `<div class="tl-match${bothTbd ? ' tl-match-tbd' : ''}${isAbbreviated ? ' tl-has-full' : ''}" data-match-id="${m.id}" style="left:${left}px;top:${top}px;width:${width}px;height:${blockH}px;background:${blockColor};" title="${esc(homeFull)} v ${esc(awayFull)}\n${esc(m.venue)}">`;
+        const kickoff = formatTime(m.utcDate, getTz());
+
+        html += `<div class="tl-match${bothTbd ? ' tl-match-tbd' : ''}${isAbbreviated ? ' tl-has-full' : ''}" data-match-id="${m.id}" style="left:${left}px;top:${top}px;width:${width}px;height:${blockH}px;background:${blockColor};" title="${esc(homeFull)} v ${esc(awayFull)}\n${kickoff} · ${esc(m.venue)}">`;
         if (numLabel) html += `<span class="tl-match-num">${numLabel}</span>`;
         html += `<span class="tl-match-label tl-match-short">${homeLabel} v ${awayLabel}</span>`;
         if (isAbbreviated) html += `<span class="tl-match-label tl-match-full">${esc(homeFull)} v ${esc(awayFull)}</span>`;
+        html += `<span class="tl-match-kickoff">${kickoff}</span>`;
         if (groupLetter) html += `<span class="tl-match-group">${groupLetter}</span>`;
         html += `</div>`;
       });

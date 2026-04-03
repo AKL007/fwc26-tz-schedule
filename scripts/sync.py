@@ -74,6 +74,12 @@ def main():
         venue = m.get('venue', '') or ''
         if not venue:
             venue = venue_map.get(utc_date, '')
+            # Try truncated date (API may include milliseconds)
+            if not venue:
+                truncated = utc_date[:19] + 'Z' if len(utc_date) > 20 else utc_date
+                venue = venue_map.get(truncated, '')
+            if not venue:
+                print(f'  Warning: no venue for {utc_date} ({normalize_team(home)} v {normalize_team(away)})')
 
         matches.append({
             'id': m['id'],

@@ -6,6 +6,7 @@ but loads the same shared JS/CSS from the root.
 """
 
 import os
+from datetime import datetime, timezone
 
 COUNTRIES = [
     {'slug': 'uk', 'name': 'UK', 'long': 'United Kingdom', 'tz': 'Europe/London', 'demonym': 'UK'},
@@ -249,12 +250,13 @@ def main():
         print(f'  /{slug}/index.html')
 
     # Generate sitemap
+    today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
     sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n'
     sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    sitemap += '  <url><loc>https://wc-26-schedule.com/</loc><priority>1.0</priority></url>\n'
-    sitemap += '  <url><loc>https://wc-26-schedule.com/list.html</loc><priority>0.8</priority></url>\n'
+    sitemap += f'  <url><loc>https://wc-26-schedule.com/</loc><lastmod>{today}</lastmod><priority>1.0</priority></url>\n'
+    sitemap += f'  <url><loc>https://wc-26-schedule.com/list.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>\n'
     for c in COUNTRIES:
-        sitemap += f'  <url><loc>https://wc-26-schedule.com/{c["slug"]}/</loc><priority>0.9</priority></url>\n'
+        sitemap += f'  <url><loc>https://wc-26-schedule.com/{c["slug"]}/</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>\n'
     sitemap += '</urlset>\n'
 
     with open(os.path.join(root, 'sitemap.xml'), 'w') as f:

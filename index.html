@@ -25,9 +25,9 @@
   <meta name="twitter:title" content="FIFA World Cup 2026 Schedule in Your Timezone">
   <meta name="twitter:description" content="All 104 matches with kick-off times automatically converted to your timezone.">
 
-  <link rel="preload" href="/data/matches.json" as="fetch" crossorigin>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="timeline.css">
+  <link rel="preload" href="/data/matches.json" as="fetch">
+  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="timeline.css?v=2">
 
   <script type="application/ld+json">
   {
@@ -110,7 +110,9 @@
 
   <div id="timeline-header" class="timeline-header-sticky"></div>
   <div class="timeline-wrapper" id="timeline-wrapper">
-    <div id="timeline-grid" class="timeline-grid"></div>
+    <div id="timeline-grid" class="timeline-grid">
+      <div class="loading-state" id="loading-state">Loading schedule...</div>
+    </div>
   </div>
 
   <div class="timeline-legend" id="timeline-legend"></div>
@@ -119,6 +121,7 @@
     <p>Times shown in your local timezone. <span id="last-updated"></span></p>
     <p>Data thanks to <a href="https://www.football-data.org" target="_blank" rel="noopener">football-data.org</a> &amp; <a href="https://github.com/openfootball" target="_blank" rel="noopener">OpenFootball</a></p>
     <p>Made with ❤️ by <a href="https://akshaylal.com" target="_blank" rel="noopener">akshaylal.com</a></p>
+    <p class="country-links">Schedule by country: <a href="/uk/">UK</a>, <a href="/usa/">USA</a>, <a href="/india/">India</a>, <a href="/brazil/">Brazil</a>, <a href="/germany/">Germany</a>, <a href="/france/">France</a>, <a href="/japan/">Japan</a>, <a href="/mexico/">Mexico</a>, <a href="/canada/">Canada</a>, <a href="/south-korea/">South Korea</a>, <a href="/indonesia/">Indonesia</a>, <a href="/turkey/">Türkiye</a>, <a href="/spain/">Spain</a>, <a href="/argentina/">Argentina</a>, <a href="/australia/">Australia</a>, <a href="/italy/">Italy</a>, <a href="/netherlands/">Netherlands</a>, <a href="/saudi-arabia/">Saudi Arabia</a>, <a href="/egypt/">Egypt</a>, <a href="/nigeria/">Nigeria</a></p>
   </footer>
 
   <div id="share-sheet" class="share-sheet hidden">
@@ -151,7 +154,7 @@
     </div>
   </div>
 
-  <script src="shared.js" defer></script>
-  <script src="timeline.js" defer></script>
+  <script src="shared.js?v=2" defer></script>
+  <script src="timeline.js?v=2" defer></script>
 </body>
 </html>

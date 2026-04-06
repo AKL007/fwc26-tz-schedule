@@ -6,6 +6,7 @@ but loads the same shared JS/CSS from the root.
 """
 
 import os
+from datetime import datetime, timezone
 
 COUNTRIES = [
     {'slug': 'uk', 'name': 'UK', 'long': 'United Kingdom', 'tz': 'Europe/London', 'demonym': 'UK'},
@@ -54,9 +55,9 @@ TEMPLATE = '''<!DOCTYPE html>
   <meta name="twitter:title" content="World Cup 2026 Schedule — {name} Times">
   <meta name="twitter:description" content="All World Cup 2026 kick-off times in {tz_label}.">
 
-  <link rel="preload" href="/data/matches.json" as="fetch" crossorigin>
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="../timeline.css">
+  <link rel="preload" href="/data/matches.json" as="fetch">
+  <link rel="stylesheet" href="../style.css?v=2">
+  <link rel="stylesheet" href="../timeline.css?v=2">
 
   <script type="application/ld+json">
   {{
@@ -144,7 +145,7 @@ TEMPLATE = '''<!DOCTYPE html>
 
   <div id="timeline-header" class="timeline-header-sticky"></div>
   <div class="timeline-wrapper" id="timeline-wrapper">
-    <div id="timeline-grid" class="timeline-grid"></div>
+    <div id="timeline-grid" class="timeline-grid"><div class="loading-state" id="loading-state">Loading schedule...</div></div>
   </div>
 
   <div class="timeline-legend" id="timeline-legend"></div>
@@ -186,8 +187,8 @@ TEMPLATE = '''<!DOCTYPE html>
     </div>
   </div>
 
-  <script src="../shared.js" defer></script>
-  <script src="../timeline.js" defer></script>
+  <script src="../shared.js?v=2" defer></script>
+  <script src="../timeline.js?v=2" defer></script>
 </body>
 </html>
 '''
@@ -249,12 +250,13 @@ def main():
         print(f'  /{slug}/index.html')
 
     # Generate sitemap
+    today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
     sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n'
     sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    sitemap += '  <url><loc>https://wc-26-schedule.com/</loc><priority>1.0</priority></url>\n'
-    sitemap += '  <url><loc>https://wc-26-schedule.com/list.html</loc><priority>0.8</priority></url>\n'
+    sitemap += f'  <url><loc>https://wc-26-schedule.com/</loc><lastmod>{today}</lastmod><priority>1.0</priority></url>\n'
+    sitemap += f'  <url><loc>https://wc-26-schedule.com/list.html</loc><lastmod>{today}</lastmod><priority>0.8</priority></url>\n'
     for c in COUNTRIES:
-        sitemap += f'  <url><loc>https://wc-26-schedule.com/{c["slug"]}/</loc><priority>0.9</priority></url>\n'
+        sitemap += f'  <url><loc>https://wc-26-schedule.com/{c["slug"]}/</loc><lastmod>{today}</lastmod><priority>0.9</priority></url>\n'
     sitemap += '</urlset>\n'
 
     with open(os.path.join(root, 'sitemap.xml'), 'w') as f:

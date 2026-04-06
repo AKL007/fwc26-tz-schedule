@@ -160,6 +160,7 @@ window.WC = (function () {
 
   async function loadMatches() {
     const res = await fetch('/data/matches.json');
+    if (!res.ok) throw new Error('Failed to load match data (' + res.status + ')');
     const data = await res.json();
     allMatches = data.matches;
     return data;

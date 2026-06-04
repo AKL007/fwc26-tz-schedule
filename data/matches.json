@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-03T10:28:27Z",
+  "lastUpdated": "2026-06-04T09:38:35Z",
   "matches": [
     {
       "id": 537327,
@@ -164,7 +164,7 @@
         "home": null,
         "away": null
       },
-      "status": "TIMED"
+      "status": "SCHEDULED"
     },
     {
       "id": 537358,

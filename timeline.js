@@ -78,11 +78,24 @@
     return { dateKey: getLocalDateKey(utcDate, tz), hour: (h % 24) + m / 60 };
   }
 
-  function formatDateLabel(utcDate, tz) {
-    const d = new Date(utcDate);
-    const day = d.toLocaleDateString('en-US', { weekday: 'short', timeZone: tz });
-    const monthDay = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: tz });
+  // Format a YYYY-MM-DD date key into row labels. The key is a plain calendar
+  // date, so format it in UTC to avoid any timezone shift.
+  function formatDateKeyLabel(dateKey) {
+    const [y, mo, d] = dateKey.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, mo - 1, d));
+    const day = dt.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' });
+    const monthDay = dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
     return { day, monthDay };
+  }
+
+  // Shift a YYYY-MM-DD date key by whole days.
+  function addDaysToKey(dateKey, delta) {
+    const [y, mo, d] = dateKey.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, mo - 1, d + delta));
+    const yy = dt.getUTCFullYear();
+    const mm = String(dt.getUTCMonth() + 1).padStart(2, '0');
+    const dd = String(dt.getUTCDate()).padStart(2, '0');
+    return `${yy}-${mm}-${dd}`;
   }
 
   function render() {
@@ -95,35 +108,31 @@
       return;
     }
 
-    // Build per-date match data with local hours
-    const dateMap = new Map(); // dateKey → { matches: [{match, hour}], sampleUtc }
-    matches.forEach(m => {
+    // Compute local hour + calendar date key for every match up front.
+    const matchParts = matches.map(m => {
       const { dateKey, hour } = getLocalParts(m.utcDate, tz);
-      if (!dateMap.has(dateKey)) dateMap.set(dateKey, { items: [], sampleUtc: m.utcDate });
-      dateMap.get(dateKey).items.push({ match: m, hour });
+      return { match: m, dateKey, hour };
     });
 
-    // Find the global time range across ALL dates
-    // We need a continuous range — find true min/max hours
-    let allHours = [];
-    for (const { items } of dateMap.values()) {
-      items.forEach(({ hour }) => allHours.push(hour));
-    }
-    allHours.sort((a, b) => a - b);
+    // Find the global time range across ALL matches.
+    // We need a continuous range — find true min/max hours.
+    const allHours = matchParts.map(p => p.hour).sort((a, b) => a - b);
 
-    // Check if times wrap around midnight (big gap in the middle)
-    // If the gap between max and min (wrapping via 24) is smaller than the direct range,
-    // it means times wrap around midnight
+    // Check if times wrap around midnight (big gap in the middle).
+    // If the gap between max and min (wrapping via 24) is smaller than the
+    // direct range, it means times wrap around midnight.
     const directRange = allHours[allHours.length - 1] - allHours[0];
-    let startHour, numSlots;
+    let startHour, numSlots, wraps;
 
     if (directRange <= 16) {
       // No wrap — simple case
+      wraps = false;
       startHour = Math.floor(allHours[0] * 2) / 2;
       const endHour = Math.ceil((allHours[allHours.length - 1] + 1.5) * 2) / 2;
       numSlots = Math.round((endHour - startHour) * 2);
     } else {
       // Wraps around midnight — find the biggest gap
+      wraps = true;
       let maxGap = 0, gapEnd = 0;
       for (let i = 1; i < allHours.length; i++) {
         const gap = allHours[i] - allHours[i - 1];
@@ -132,8 +141,7 @@
       // Start from the hour after the biggest gap
       startHour = Math.floor(allHours[gapEnd] * 2) / 2;
       const lastHour = allHours[gapEnd - 1];
-      const endHour = Math.ceil((lastHour + 24 - startHour + 1.5 + startHour) * 2) / 2;
-      // Actually: total span wrapping
+      // Total span wrapping past midnight
       const span = (lastHour + 1.5) - startHour + 24;
       numSlots = Math.round(span * 2);
     }
@@ -144,6 +152,18 @@
       if (offset < 0) offset += 24;
       return offset * 2; // 2 slots per hour
     }
+
+    // Group matches into session-day rows. When the axis wraps past midnight, a
+    // match whose local hour falls before startHour belongs to the previous
+    // evening's session (e.g. a 03:00 kickoff is part of the prior day's slate),
+    // so it shares that row and stays in chronological order rather than being
+    // pushed onto the next calendar date.
+    const dateMap = new Map(); // sessionDateKey → { items: [{match, hour}] }
+    matchParts.forEach(({ match, dateKey, hour }) => {
+      const key = (wraps && hour < startHour) ? addDaysToKey(dateKey, -1) : dateKey;
+      if (!dateMap.has(key)) dateMap.set(key, { items: [] });
+      dateMap.get(key).items.push({ match, hour });
+    });
 
     const dates = [...dateMap.entries()].sort((a, b) => a[0].localeCompare(b[0]));
     const totalRows = dates.length;
@@ -183,11 +203,12 @@
     let html = '';
 
     // === Date rows ===
-    dates.forEach(([dateKey, { items, sampleUtc }]) => {
-      const { day, monthDay } = formatDateLabel(sampleUtc, tz);
+    dates.forEach(([dateKey, { items }]) => {
+      const { day, monthDay } = formatDateKeyLabel(dateKey);
 
-      // Sort items by hour for stacking
-      items.sort((a, b) => a.hour - b.hour);
+      // Sort items by on-axis position (left → right) so stacking and ordering
+      // follow the timeline, even across the midnight wrap.
+      items.sort((a, b) => hourToSlot(a.hour) - hourToSlot(b.hour));
 
       // Calculate stacking — find overlapping matches and stack them
       const lanes = []; // each lane is an array of {start, end} slot ranges

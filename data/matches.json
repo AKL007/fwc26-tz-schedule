@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-11T09:59:07Z",
+  "lastUpdated": "2026-06-12T09:51:34Z",
   "matches": [
     {
       "id": 537327,
@@ -11,10 +11,10 @@
       "awayTeam": "South Africa",
       "venue": "Mexico City",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537328,
@@ -26,10 +26,10 @@
       "awayTeam": "Czechia",
       "venue": "Guadalajara (Zapopan)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537333,
@@ -164,7 +164,7 @@
         "home": null,
         "away": null
       },
-      "status": "TIMED"
+      "status": "SCHEDULED"
     },
     {
       "id": 537358,

@@ -316,27 +316,39 @@
     }
   }
 
+  // 3-letter codes (FIFA-style) so both teams always fit inside a match block.
+  // Keyed by the data name and, where they differ, the localized display name.
+  const TEAM_CODES = {
+    'Algeria': 'ALG', 'Argentina': 'ARG', 'Australia': 'AUS', 'Austria': 'AUT',
+    'Belgium': 'BEL', 'Bosnia-Herzegovina': 'BIH', 'Bosnia & Herzegovina': 'BIH',
+    'Brazil': 'BRA', 'Canada': 'CAN',
+    'Cape Verde Islands': 'CPV', 'Cape Verde': 'CPV', 'Cabo Verde': 'CPV',
+    'Colombia': 'COL', 'Congo DR': 'COD', 'DR Congo': 'COD',
+    'Costa Rica': 'CRC', 'Croatia': 'CRO', 'Curaçao': 'CUW',
+    'Czechia': 'CZE', 'Czech Republic': 'CZE', 'Ecuador': 'ECU', 'Egypt': 'EGY',
+    'England': 'ENG', 'France': 'FRA', 'Germany': 'GER', 'Ghana': 'GHA',
+    'Haiti': 'HAI', 'Iran': 'IRN', 'Iraq': 'IRQ',
+    'Ivory Coast': 'CIV', "Côte d'Ivoire": 'CIV',
+    'Japan': 'JPN', 'Jordan': 'JOR', 'Mexico': 'MEX', 'Morocco': 'MAR',
+    'Netherlands': 'NED', 'New Zealand': 'NZL', 'Norway': 'NOR', 'Panama': 'PAN',
+    'Paraguay': 'PAR', 'Portugal': 'POR', 'Qatar': 'QAT', 'Saudi Arabia': 'KSA',
+    'Scotland': 'SCO', 'Senegal': 'SEN', 'South Africa': 'RSA',
+    'South Korea': 'KOR', 'Korea Republic': 'KOR', 'Spain': 'ESP',
+    'Sweden': 'SWE', 'Switzerland': 'SUI', 'Tunisia': 'TUN',
+    'Turkey': 'TUR', 'Türkiye': 'TUR', 'United States': 'USA',
+    'Uruguay': 'URU', 'Uzbekistan': 'UZB',
+  };
+
   function shortenTeam(name) {
-    const display = displayTeamName(name);
-    const map = {
-      'South Africa': 'RSA', 'Korea Republic': 'KOR', 'South Korea': 'KOR',
-      'Saudi Arabia': 'KSA', 'New Zealand': 'NZL',
-      "Côte d'Ivoire": 'CIV', 'Ivory Coast': 'CIV',
-      'Costa Rica': 'CRC', 'DR Congo': 'COD',
-      'Cabo Verde': 'CPV', 'Cape Verde': 'CPV',
-      'Czechia': 'CZE', 'Czech Republic': 'CZE',
-      'Türkiye': 'TÜR', 'Turkey': 'TÜR',
-      'Bosnia & Herzegovina': 'BIH',
-    };
-    if (map[display]) return map[display];
-    if (map[name]) return map[name];
+    // Placeholder slots — keep their compact bracket form.
     if (name.startsWith('1st ')) return '1' + name.replace('1st Group ', '');
     if (name.startsWith('2nd ')) return '2' + name.replace('2nd Group ', '');
     if (name.startsWith('3rd ')) return '3' + name.replace('3rd Group ', '');
     if (name.startsWith('Winner Match ')) return 'W' + name.replace('Winner Match ', '');
     if (name.startsWith('Loser Match ')) return 'L' + name.replace('Loser Match ', '');
-    if (name.length <= 8) return name;
-    return name.substring(0, 3).toUpperCase();
+
+    // Real teams → always a 3-letter code so the away side is never truncated.
+    return TEAM_CODES[name] || TEAM_CODES[displayTeamName(name)] || name.substring(0, 3).toUpperCase();
   }
 
   function renderLegend() {

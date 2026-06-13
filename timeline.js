@@ -2,7 +2,7 @@
   'use strict';
 
   const { GROUP_COLORS, STAGE_COLORS, STAGE_LABELS,
-    getLocalDateKey, formatTime, esc, getMatchColor, isRealTeam, teamHtml, displayTeamName, formatLastUpdated,
+    getLocalDateKey, formatTime, formatDate, esc, getMatchColor, isRealTeam, teamHtml, displayTeamName, formatLastUpdated,
     detectTimezone, initTimezoneUI, initShareSheet, initMultiFilters, loadMatches,
     hasAnyFilter, matchPassesFilters,
     setTz, getTz, getMatches } = window.WC;
@@ -316,6 +316,60 @@
     }
   }
 
+  // --- Match detail sheet (tap a cell) ---
+
+  let detailSheet = null;
+
+  function ensureDetailSheet() {
+    if (detailSheet) return detailSheet;
+    const el = document.createElement('div');
+    el.className = 'tl-sheet hidden';
+    el.innerHTML =
+      '<div class="tl-sheet-backdrop"></div>' +
+      '<div class="tl-sheet-panel" role="dialog" aria-modal="true" aria-label="Match details">' +
+      '<div class="tl-sheet-accent"></div>' +
+      '<button class="tl-sheet-close" type="button" aria-label="Close">&times;</button>' +
+      '<div class="tl-sheet-body"></div>' +
+      '</div>';
+    document.body.appendChild(el);
+
+    const close = () => el.classList.add('hidden');
+    el.querySelector('.tl-sheet-backdrop').addEventListener('click', close);
+    el.querySelector('.tl-sheet-close').addEventListener('click', close);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !el.classList.contains('hidden')) close();
+    });
+
+    detailSheet = el;
+    return el;
+  }
+
+  function showMatchSheet(m) {
+    const el = ensureDetailSheet();
+    const tz = getTz();
+    const homeFull = displayTeamName(m.homeTeam);
+    const awayFull = displayTeamName(m.awayTeam);
+    const homeReal = isRealTeam(m.homeTeam);
+    const awayReal = isRealTeam(m.awayTeam);
+    const groupLetter = m.group ? m.group.replace('Group ', '').replace('GROUP_', '') : '';
+    const meta = m.stage === 'GROUP_STAGE'
+      ? `Group ${groupLetter}${m.matchday ? ' · Matchday ' + m.matchday : ''}`
+      : (STAGE_LABELS[m.stage] || m.stage);
+
+    el.querySelector('.tl-sheet-accent').style.background = getMatchColor(m);
+    el.querySelector('.tl-sheet-body').innerHTML =
+      `<div class="tl-sheet-meta">${esc(meta)}</div>` +
+      `<div class="tl-sheet-teams">` +
+        `<span class="${homeReal ? '' : 'tl-sheet-tbd'}">${esc(homeFull)}</span>` +
+        `<span class="tl-sheet-v">v</span>` +
+        `<span class="${awayReal ? '' : 'tl-sheet-tbd'}">${esc(awayFull)}</span>` +
+      `</div>` +
+      `<div class="tl-sheet-row"><span class="tl-sheet-ico">🕒</span><span>${esc(formatDate(m.utcDate, tz))} · ${esc(formatTime(m.utcDate, tz))}</span></div>` +
+      `<div class="tl-sheet-row"><span class="tl-sheet-ico">📍</span><span>${esc(m.venue)}</span></div>`;
+
+    el.classList.remove('hidden');
+  }
+
   // 3-letter codes (FIFA-style) so both teams always fit inside a match block.
   // Keyed by the data name and, where they differ, the localized display name.
   const TEAM_CODES = {
@@ -392,6 +446,17 @@
       initShareSheet();
       initMultiFilters(applyFilterHighlights);
       render();
+
+      // Tap/click a match cell → open the detail sheet. Delegated on the grid,
+      // which persists while its contents are re-rendered.
+      const grid = document.getElementById('timeline-grid');
+      grid.addEventListener('click', e => {
+        const cell = e.target.closest('.tl-match');
+        if (!cell) return;
+        const id = parseInt(cell.dataset.matchId, 10);
+        const match = getMatches().find(x => x.id === id);
+        if (match) showMatchSheet(match);
+      });
 
       let resizeTimer;
       window.addEventListener('resize', () => {

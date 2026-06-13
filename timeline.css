@@ -122,7 +122,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  cursor: default;
+  cursor: pointer;
   z-index: 5;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
@@ -219,6 +219,120 @@
   font-size: 0.6rem;
   opacity: 0.6;
   margin-left: 0.25rem;
+}
+
+/* Match detail sheet (tap a cell) */
+.tl-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.tl-sheet.hidden {
+  display: none !important;
+}
+
+.tl-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.tl-sheet-panel {
+  position: relative;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  max-width: 420px;
+  padding: 1.5rem 1.25rem 1.5rem;
+  overflow: hidden;
+  animation: sheet-up 0.2s ease-out;
+}
+
+.tl-sheet-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.tl-sheet-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.tl-sheet-close:hover {
+  color: var(--text);
+}
+
+.tl-sheet-meta {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.tl-sheet-teams {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  padding-right: 1.5rem;
+}
+
+.tl-sheet-v {
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-size: 0.9rem;
+  margin: 0 0.4rem;
+}
+
+.tl-sheet-tbd {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.tl-sheet-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  padding: 0.35rem 0;
+}
+
+.tl-sheet-ico {
+  font-size: 1rem;
+  width: 1.25rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .tl-sheet {
+    align-items: center;
+  }
+
+  .tl-sheet-panel {
+    border-radius: 16px;
+    border: 1px solid var(--border);
+  }
 }
 
 /* Legend */

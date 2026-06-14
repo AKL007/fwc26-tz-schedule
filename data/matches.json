@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-13T08:42:53Z",
+  "lastUpdated": "2026-06-14T08:58:18Z",
   "matches": [
     {
       "id": 537327,
@@ -71,10 +71,10 @@
       "awayTeam": "Switzerland",
       "venue": "San Francisco Bay Area (Santa Clara)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537339,
@@ -86,10 +86,10 @@
       "awayTeam": "Morocco",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537340,
@@ -101,10 +101,10 @@
       "awayTeam": "Scotland",
       "venue": "Boston (Foxborough)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537346,
@@ -116,10 +116,10 @@
       "awayTeam": "Turkey",
       "venue": "Vancouver",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537351,

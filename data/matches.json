@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T08:58:18Z",
+  "lastUpdated": "2026-06-15T11:39:11Z",
   "matches": [
     {
       "id": 537327,
@@ -131,10 +131,10 @@
       "awayTeam": "Cura\u00e7ao",
       "venue": "Houston",
       "score": {
-        "home": null,
-        "away": null
+        "home": 7,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537357,
@@ -146,10 +146,10 @@
       "awayTeam": "Japan",
       "venue": "Dallas (Arlington)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537352,
@@ -161,10 +161,10 @@
       "awayTeam": "Ecuador",
       "venue": "Philadelphia",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537358,
@@ -176,10 +176,10 @@
       "awayTeam": "Tunisia",
       "venue": "Monterrey (Guadalupe)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 5,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537369,

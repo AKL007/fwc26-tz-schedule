@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T11:39:11Z",
+  "lastUpdated": "2026-06-16T10:48:48Z",
   "matches": [
     {
       "id": 537327,
@@ -191,10 +191,10 @@
       "awayTeam": "Cape Verde Islands",
       "venue": "Atlanta",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537363,
@@ -206,10 +206,10 @@
       "awayTeam": "Egypt",
       "venue": "Seattle",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537370,
@@ -221,10 +221,10 @@
       "awayTeam": "Uruguay",
       "venue": "Miami (Miami Gardens)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537364,
@@ -236,10 +236,10 @@
       "awayTeam": "New Zealand",
       "venue": "Los Angeles (Inglewood)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537391,

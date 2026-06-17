@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T10:48:48Z",
+  "lastUpdated": "2026-06-17T10:21:09Z",
   "matches": [
     {
       "id": 537327,
@@ -251,10 +251,10 @@
       "awayTeam": "Senegal",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537392,
@@ -266,10 +266,10 @@
       "awayTeam": "Norway",
       "venue": "Boston (Foxborough)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 4
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537397,
@@ -281,10 +281,10 @@
       "awayTeam": "Algeria",
       "venue": "Kansas City",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537398,
@@ -296,10 +296,10 @@
       "awayTeam": "Jordan",
       "venue": "San Francisco Bay Area (Santa Clara)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537403,

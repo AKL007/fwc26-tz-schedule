@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T10:21:09Z",
+  "lastUpdated": "2026-06-18T10:00:45Z",
   "matches": [
     {
       "id": 537327,
@@ -311,10 +311,10 @@
       "awayTeam": "Congo DR",
       "venue": "Houston",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537409,
@@ -326,10 +326,10 @@
       "awayTeam": "Croatia",
       "venue": "Dallas (Arlington)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 4,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537410,
@@ -341,10 +341,10 @@
       "awayTeam": "Panama",
       "venue": "Toronto",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537404,
@@ -356,10 +356,10 @@
       "awayTeam": "Colombia",
       "venue": "Mexico City",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 3
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537329,

@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T10:00:45Z",
+  "lastUpdated": "2026-06-19T10:07:07Z",
   "matches": [
     {
       "id": 537327,
@@ -371,10 +371,10 @@
       "awayTeam": "South Africa",
       "venue": "Atlanta",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537335,
@@ -386,10 +386,10 @@
       "awayTeam": "Bosnia-Herzegovina",
       "venue": "Los Angeles (Inglewood)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 4,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537336,
@@ -401,10 +401,10 @@
       "awayTeam": "Qatar",
       "venue": "Vancouver",
       "score": {
-        "home": null,
-        "away": null
+        "home": 6,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537330,
@@ -416,10 +416,10 @@
       "awayTeam": "South Korea",
       "venue": "Guadalajara (Zapopan)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537348,

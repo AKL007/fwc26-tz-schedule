@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T10:07:07Z",
+  "lastUpdated": "2026-06-20T08:36:46Z",
   "matches": [
     {
       "id": 537327,
@@ -431,10 +431,10 @@
       "awayTeam": "Australia",
       "venue": "Seattle",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537342,
@@ -446,10 +446,10 @@
       "awayTeam": "Morocco",
       "venue": "Boston (Foxborough)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537341,
@@ -461,10 +461,10 @@
       "awayTeam": "Haiti",
       "venue": "",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537347,
@@ -476,10 +476,10 @@
       "awayTeam": "Paraguay",
       "venue": "",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537359,

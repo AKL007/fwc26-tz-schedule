@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T08:36:46Z",
+  "lastUpdated": "2026-06-22T11:27:44Z",
   "matches": [
     {
       "id": 537327,
@@ -491,10 +491,10 @@
       "awayTeam": "Sweden",
       "venue": "Houston",
       "score": {
-        "home": null,
-        "away": null
+        "home": 5,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537353,
@@ -506,10 +506,10 @@
       "awayTeam": "Ivory Coast",
       "venue": "Toronto",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537354,
@@ -521,10 +521,10 @@
       "awayTeam": "Cura\u00e7ao",
       "venue": "Kansas City",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537360,
@@ -536,10 +536,10 @@
       "awayTeam": "Japan",
       "venue": "Monterrey (Guadalupe)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 4
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537371,
@@ -551,10 +551,10 @@
       "awayTeam": "Saudi Arabia",
       "venue": "Atlanta",
       "score": {
-        "home": null,
-        "away": null
+        "home": 4,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537365,
@@ -566,10 +566,10 @@
       "awayTeam": "Iran",
       "venue": "Los Angeles (Inglewood)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537372,
@@ -581,10 +581,10 @@
       "awayTeam": "Cape Verde Islands",
       "venue": "Miami (Miami Gardens)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537366,
@@ -596,10 +596,10 @@
       "awayTeam": "Egypt",
       "venue": "Vancouver",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 3
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537399,

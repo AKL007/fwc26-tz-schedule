@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T11:27:44Z",
+  "lastUpdated": "2026-06-23T08:53:10Z",
   "matches": [
     {
       "id": 537327,
@@ -611,10 +611,10 @@
       "awayTeam": "Austria",
       "venue": "Dallas (Arlington)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537393,
@@ -626,10 +626,10 @@
       "awayTeam": "Iraq",
       "venue": "Philadelphia",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537394,
@@ -641,10 +641,10 @@
       "awayTeam": "Senegal",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537400,
@@ -656,10 +656,10 @@
       "awayTeam": "Algeria",
       "venue": "San Francisco Bay Area (Santa Clara)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537405,

@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T08:53:10Z",
+  "lastUpdated": "2026-06-24T08:48:54Z",
   "matches": [
     {
       "id": 537327,
@@ -671,10 +671,10 @@
       "awayTeam": "Uzbekistan",
       "venue": "Houston",
       "score": {
-        "home": null,
-        "away": null
+        "home": 5,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537411,
@@ -686,10 +686,10 @@
       "awayTeam": "Ghana",
       "venue": "Boston (Foxborough)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537412,
@@ -701,10 +701,10 @@
       "awayTeam": "Croatia",
       "venue": "Toronto",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537406,
@@ -716,10 +716,10 @@
       "awayTeam": "Congo DR",
       "venue": "Guadalajara (Zapopan)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537337,
@@ -1117,7 +1117,7 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "Germany",
       "awayTeam": "TBD",
       "venue": "Boston (Foxborough)",
       "score": {
@@ -1177,7 +1177,7 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "Mexico",
       "awayTeam": "TBD",
       "venue": "Mexico City",
       "score": {
@@ -1222,7 +1222,7 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "United States",
       "awayTeam": "TBD",
       "venue": "San Francisco Bay Area (Santa Clara)",
       "score": {
@@ -1297,7 +1297,7 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "Argentina",
       "awayTeam": "TBD",
       "venue": "Miami (Miami Gardens)",
       "score": {

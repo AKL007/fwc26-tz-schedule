@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T08:48:54Z",
+  "lastUpdated": "2026-06-25T08:43:23Z",
   "matches": [
     {
       "id": 537327,
@@ -731,10 +731,10 @@
       "awayTeam": "Canada",
       "venue": "Seattle",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537338,
@@ -746,10 +746,10 @@
       "awayTeam": "Qatar",
       "venue": "Seattle",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537344,
@@ -761,10 +761,10 @@
       "awayTeam": "Haiti",
       "venue": "Atlanta",
       "score": {
-        "home": null,
-        "away": null
+        "home": 4,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537343,
@@ -776,10 +776,10 @@
       "awayTeam": "Brazil",
       "venue": "Atlanta",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 3
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537331,
@@ -791,10 +791,10 @@
       "awayTeam": "Mexico",
       "venue": "Monterrey (Guadalupe)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 3
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537332,
@@ -806,10 +806,10 @@
       "awayTeam": "South Korea",
       "venue": "Monterrey (Guadalupe)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537355,

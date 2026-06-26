@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T08:43:23Z",
+  "lastUpdated": "2026-06-26T08:45:20Z",
   "matches": [
     {
       "id": 537327,
@@ -821,10 +821,10 @@
       "awayTeam": "Germany",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537356,
@@ -836,10 +836,10 @@
       "awayTeam": "Ivory Coast",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537361,
@@ -851,10 +851,10 @@
       "awayTeam": "Netherlands",
       "venue": "Kansas City",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 3
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537362,
@@ -866,10 +866,10 @@
       "awayTeam": "Sweden",
       "venue": "Kansas City",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537349,
@@ -881,10 +881,10 @@
       "awayTeam": "United States",
       "venue": "San Francisco Bay Area (Santa Clara)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537350,
@@ -896,10 +896,10 @@
       "awayTeam": "Australia",
       "venue": "San Francisco Bay Area (Santa Clara)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537395,
@@ -1087,8 +1087,8 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "South Africa",
+      "awayTeam": "Canada",
       "venue": "Los Angeles (Inglewood)",
       "score": {
         "home": null,
@@ -1102,8 +1102,8 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "Brazil",
+      "awayTeam": "Japan",
       "venue": "Houston",
       "score": {
         "home": null,
@@ -1132,8 +1132,8 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "Netherlands",
+      "awayTeam": "Morocco",
       "venue": "Monterrey (Guadalupe)",
       "score": {
         "home": null,
@@ -1223,7 +1223,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "United States",
-      "awayTeam": "TBD",
+      "awayTeam": "Bosnia-Herzegovina",
       "venue": "San Francisco Bay Area (Santa Clara)",
       "score": {
         "home": null,
@@ -1267,7 +1267,7 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "Switzerland",
       "awayTeam": "TBD",
       "venue": "Vancouver",
       "score": {
@@ -1282,7 +1282,7 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "Australia",
       "awayTeam": "TBD",
       "venue": "Dallas (Arlington)",
       "score": {

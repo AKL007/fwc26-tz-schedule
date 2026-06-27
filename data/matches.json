@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T08:45:20Z",
+  "lastUpdated": "2026-06-27T08:22:18Z",
   "matches": [
     {
       "id": 537327,
@@ -911,10 +911,10 @@
       "awayTeam": "France",
       "venue": "Toronto",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 4
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537396,
@@ -926,10 +926,10 @@
       "awayTeam": "Iraq",
       "venue": "Toronto",
       "score": {
-        "home": null,
-        "away": null
+        "home": 5,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537373,
@@ -941,10 +941,10 @@
       "awayTeam": "Spain",
       "venue": "Guadalajara (Zapopan)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537374,
@@ -956,10 +956,10 @@
       "awayTeam": "Saudi Arabia",
       "venue": "Guadalajara (Zapopan)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537367,
@@ -971,10 +971,10 @@
       "awayTeam": "Belgium",
       "venue": "Vancouver",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 5
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537368,
@@ -986,10 +986,10 @@
       "awayTeam": "Iran",
       "venue": "Vancouver",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537413,
@@ -1147,7 +1147,7 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "Ivory Coast",
       "awayTeam": "TBD",
       "venue": "Dallas (Arlington)",
       "score": {

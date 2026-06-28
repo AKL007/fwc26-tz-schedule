@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T08:22:18Z",
+  "lastUpdated": "2026-06-28T08:36:43Z",
   "matches": [
     {
       "id": 537327,
@@ -1001,10 +1001,10 @@
       "awayTeam": "England",
       "venue": "Philadelphia",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537414,
@@ -1016,10 +1016,10 @@
       "awayTeam": "Ghana",
       "venue": "Philadelphia",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537407,
@@ -1031,10 +1031,10 @@
       "awayTeam": "Portugal",
       "venue": "Atlanta",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537408,
@@ -1046,10 +1046,10 @@
       "awayTeam": "Uzbekistan",
       "venue": "Atlanta",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537401,
@@ -1061,10 +1061,10 @@
       "awayTeam": "Argentina",
       "venue": "Dallas (Arlington)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 3
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537402,
@@ -1076,10 +1076,10 @@
       "awayTeam": "Austria",
       "venue": "Dallas (Arlington)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 3
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537417,
@@ -1118,7 +1118,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "Germany",
-      "awayTeam": "TBD",
+      "awayTeam": "Paraguay",
       "venue": "Boston (Foxborough)",
       "score": {
         "home": null,
@@ -1148,7 +1148,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "Ivory Coast",
-      "awayTeam": "TBD",
+      "awayTeam": "Norway",
       "venue": "Dallas (Arlington)",
       "score": {
         "home": null,
@@ -1162,8 +1162,8 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "France",
+      "awayTeam": "Sweden",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {
         "home": null,
@@ -1178,7 +1178,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "Mexico",
-      "awayTeam": "TBD",
+      "awayTeam": "Ecuador",
       "venue": "Mexico City",
       "score": {
         "home": null,
@@ -1192,8 +1192,8 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "England",
+      "awayTeam": "Congo DR",
       "venue": "Atlanta",
       "score": {
         "home": null,
@@ -1207,8 +1207,8 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "Belgium",
+      "awayTeam": "Senegal",
       "venue": "Seattle",
       "score": {
         "home": null,
@@ -1237,8 +1237,8 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "Spain",
+      "awayTeam": "Austria",
       "venue": "Los Angeles (Inglewood)",
       "score": {
         "home": null,
@@ -1252,8 +1252,8 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "Portugal",
+      "awayTeam": "Croatia",
       "venue": "Toronto",
       "score": {
         "home": null,
@@ -1268,7 +1268,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "Switzerland",
-      "awayTeam": "TBD",
+      "awayTeam": "Algeria",
       "venue": "Vancouver",
       "score": {
         "home": null,
@@ -1283,7 +1283,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "Australia",
-      "awayTeam": "TBD",
+      "awayTeam": "Egypt",
       "venue": "Dallas (Arlington)",
       "score": {
         "home": null,
@@ -1298,7 +1298,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "Argentina",
-      "awayTeam": "TBD",
+      "awayTeam": "Cape Verde Islands",
       "venue": "Miami (Miami Gardens)",
       "score": {
         "home": null,
@@ -1312,8 +1312,8 @@
       "stage": "ROUND_OF_32",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "Colombia",
+      "awayTeam": "Ghana",
       "venue": "Kansas City",
       "score": {
         "home": null,

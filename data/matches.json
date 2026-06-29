@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T08:36:43Z",
+  "lastUpdated": "2026-06-29T10:15:41Z",
   "matches": [
     {
       "id": 537327,
@@ -1091,10 +1091,10 @@
       "awayTeam": "Canada",
       "venue": "Los Angeles (Inglewood)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537423,
@@ -1327,7 +1327,7 @@
       "stage": "ROUND_OF_16",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "Canada",
       "awayTeam": "TBD",
       "venue": "Houston",
       "score": {

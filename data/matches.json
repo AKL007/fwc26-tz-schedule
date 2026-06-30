@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T10:15:41Z",
+  "lastUpdated": "2026-06-30T08:51:05Z",
   "matches": [
     {
       "id": 537327,
@@ -1106,10 +1106,10 @@
       "awayTeam": "Japan",
       "venue": "Houston",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537415,
@@ -1121,10 +1121,10 @@
       "awayTeam": "Paraguay",
       "venue": "Boston (Foxborough)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 4,
+        "away": 5
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537418,
@@ -1136,10 +1136,10 @@
       "awayTeam": "Morocco",
       "venue": "Monterrey (Guadalupe)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 4
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537424,
@@ -1328,7 +1328,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "Canada",
-      "awayTeam": "TBD",
+      "awayTeam": "Morocco",
       "venue": "Houston",
       "score": {
         "home": null,
@@ -1342,7 +1342,7 @@
       "stage": "ROUND_OF_16",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "Paraguay",
       "awayTeam": "TBD",
       "venue": "Philadelphia",
       "score": {
@@ -1357,7 +1357,7 @@
       "stage": "ROUND_OF_16",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "Brazil",
       "awayTeam": "TBD",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {

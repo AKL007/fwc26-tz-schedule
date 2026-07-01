@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T08:51:05Z",
+  "lastUpdated": "2026-07-01T09:24:08Z",
   "matches": [
     {
       "id": 537327,
@@ -1151,10 +1151,10 @@
       "awayTeam": "Norway",
       "venue": "Dallas (Arlington)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537416,
@@ -1166,10 +1166,10 @@
       "awayTeam": "Sweden",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537425,
@@ -1181,10 +1181,10 @@
       "awayTeam": "Ecuador",
       "venue": "Mexico City",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537426,
@@ -1343,7 +1343,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "Paraguay",
-      "awayTeam": "TBD",
+      "awayTeam": "France",
       "venue": "Philadelphia",
       "score": {
         "home": null,
@@ -1358,7 +1358,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "Brazil",
-      "awayTeam": "TBD",
+      "awayTeam": "Norway",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {
         "home": null,

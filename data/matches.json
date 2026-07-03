@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T08:37:15Z",
+  "lastUpdated": "2026-07-03T08:43:09Z",
   "matches": [
     {
       "id": 537327,
@@ -1241,10 +1241,10 @@
       "awayTeam": "Austria",
       "venue": "Los Angeles (Inglewood)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537419,
@@ -1256,10 +1256,10 @@
       "awayTeam": "Croatia",
       "venue": "Toronto",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537429,
@@ -1271,10 +1271,10 @@
       "awayTeam": "Algeria",
       "venue": "Vancouver",
       "score": {
-        "home": null,
-        "away": null
+        "home": 2,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537428,

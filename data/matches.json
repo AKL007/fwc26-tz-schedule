@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T08:43:09Z",
+  "lastUpdated": "2026-07-04T08:17:14Z",
   "matches": [
     {
       "id": 537327,
@@ -1286,10 +1286,10 @@
       "awayTeam": "Egypt",
       "venue": "Dallas (Arlington)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 5
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537427,
@@ -1301,10 +1301,10 @@
       "awayTeam": "Cape Verde Islands",
       "venue": "Miami (Miami Gardens)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537430,
@@ -1316,10 +1316,10 @@
       "awayTeam": "Ghana",
       "venue": "Kansas City",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537376,
@@ -1387,8 +1387,8 @@
       "stage": "ROUND_OF_16",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "Portugal",
+      "awayTeam": "Spain",
       "venue": "Dallas (Arlington)",
       "score": {
         "home": null,
@@ -1417,8 +1417,8 @@
       "stage": "ROUND_OF_16",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "Argentina",
+      "awayTeam": "Egypt",
       "venue": "Atlanta",
       "score": {
         "home": null,
@@ -1432,8 +1432,8 @@
       "stage": "ROUND_OF_16",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "Switzerland",
+      "awayTeam": "Colombia",
       "venue": "Vancouver",
       "score": {
         "home": null,

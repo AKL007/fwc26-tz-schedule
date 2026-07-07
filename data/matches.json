@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T09:49:07Z",
+  "lastUpdated": "2026-07-07T09:18:19Z",
   "matches": [
     {
       "id": 537327,
@@ -1391,10 +1391,10 @@
       "awayTeam": "Spain",
       "venue": "Dallas (Arlington)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537380,
@@ -1406,10 +1406,10 @@
       "awayTeam": "Belgium",
       "venue": "Seattle",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 4
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537381,
@@ -1462,8 +1462,8 @@
       "stage": "QUARTER_FINAL",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "Spain",
+      "awayTeam": "Belgium",
       "venue": "Los Angeles (Inglewood)",
       "score": {
         "home": null,

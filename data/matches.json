@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-11T07:28:33Z",
+  "lastUpdated": "2026-07-12T07:53:37Z",
   "matches": [
     {
       "id": 537327,
@@ -1481,10 +1481,10 @@
       "awayTeam": "England",
       "venue": "Miami (Miami Gardens)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537386,
@@ -1496,10 +1496,10 @@
       "awayTeam": "Switzerland",
       "venue": "Kansas City",
       "score": {
-        "home": null,
-        "away": null
+        "home": 3,
+        "away": 1
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537387,
@@ -1522,8 +1522,8 @@
       "stage": "SEMI_FINAL",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
-      "awayTeam": "TBD",
+      "homeTeam": "England",
+      "awayTeam": "Argentina",
       "venue": "Atlanta",
       "score": {
         "home": null,

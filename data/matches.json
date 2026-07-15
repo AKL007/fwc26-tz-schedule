@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-14T07:41:59Z",
+  "lastUpdated": "2026-07-15T07:45:47Z",
   "matches": [
     {
       "id": 537327,
@@ -1511,10 +1511,10 @@
       "awayTeam": "Spain",
       "venue": "Dallas (Arlington)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 0,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537388,
@@ -1537,7 +1537,7 @@
       "stage": "THIRD_PLACE",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "France",
       "awayTeam": "TBD",
       "venue": "Miami (Miami Gardens)",
       "score": {
@@ -1552,7 +1552,7 @@
       "stage": "FINAL",
       "group": null,
       "matchday": null,
-      "homeTeam": "TBD",
+      "homeTeam": "Spain",
       "awayTeam": "TBD",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {

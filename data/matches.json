@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-15T07:45:47Z",
+  "lastUpdated": "2026-07-16T07:50:32Z",
   "matches": [
     {
       "id": 537327,
@@ -1526,10 +1526,10 @@
       "awayTeam": "Argentina",
       "venue": "Atlanta",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 2
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537389,
@@ -1538,7 +1538,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "France",
-      "awayTeam": "TBD",
+      "awayTeam": "England",
       "venue": "Miami (Miami Gardens)",
       "score": {
         "home": null,
@@ -1553,7 +1553,7 @@
       "group": null,
       "matchday": null,
       "homeTeam": "Spain",
-      "awayTeam": "TBD",
+      "awayTeam": "Argentina",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {
         "home": null,

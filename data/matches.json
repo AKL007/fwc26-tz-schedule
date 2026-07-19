@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-18T07:22:38Z",
+  "lastUpdated": "2026-07-19T07:53:33Z",
   "matches": [
     {
       "id": 537327,
@@ -1541,10 +1541,10 @@
       "awayTeam": "England",
       "venue": "Miami (Miami Gardens)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 4,
+        "away": 6
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     },
     {
       "id": 537390,

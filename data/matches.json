@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-19T07:53:33Z",
+  "lastUpdated": "2026-07-20T08:32:45Z",
   "matches": [
     {
       "id": 537327,
@@ -1556,10 +1556,10 @@
       "awayTeam": "Argentina",
       "venue": "New York/New Jersey (East Rutherford)",
       "score": {
-        "home": null,
-        "away": null
+        "home": 1,
+        "away": 0
       },
-      "status": "TIMED"
+      "status": "FINISHED"
     }
   ]
 }

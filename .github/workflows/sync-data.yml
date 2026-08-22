@@ -22,8 +22,13 @@ jobs:
       - name: Validate data
         run: pip install pytest && python3 -m pytest tests/ -v
 
+      - name: Regenerate static pages
+        run: |
+          python3 scripts/generate-country-pages.py
+          python3 scripts/generate-team-pages.py
+
       - name: Commit updated data
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 'data: update match schedule'
-          file_pattern: 'data/matches.json'
+          commit_message: 'data: update match schedule and pages'
+          file_pattern: 'data/matches.json sitemap.xml robots.txt team/ */index.html'

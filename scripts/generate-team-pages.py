@@ -4,6 +4,7 @@
 import json
 import os
 import re
+import shutil
 
 DATA_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'matches.json')
 
@@ -252,6 +253,16 @@ def main():
         with open(os.path.join(out_dir, 'index.html'), 'w') as f:
             f.write(page)
         print(f'  /team/{slug}/')
+
+    # Remove stale team dirs (e.g. when the API renames a team and its slug
+    # changes), so renamed teams don't leave orphaned pages behind.
+    valid_slugs = {slugify(t) for t in teams}
+    team_root = os.path.join(root, 'team')
+    for existing in os.listdir(team_root):
+        path = os.path.join(team_root, existing)
+        if os.path.isdir(path) and existing not in valid_slugs:
+            shutil.rmtree(path)
+            print(f'  Removed stale /team/{existing}/')
 
     # Update sitemap
     sitemap_path = os.path.join(root, 'sitemap.xml')
